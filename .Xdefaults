@@ -1,0 +1,26 @@
+URxvt.font: xft:DejaVu Sans Mono:antialias=true:pixelsize=13
+URxvt.boldFont: xft:DejaVu Sans Mono:style=bold:antialias=true:pixelsize=13
+
+URxvt.scrollBar:	false
+URxvt.cursorBlink:	false
+
+URxvt.background:	#3f3f3f
+URxvt.foreground:	#dcdccc
+URxvt.cursorColor:	#dcdccc
+
+URxvt.color0:		#2b2b2b
+URxvt.color1:		#cc9393
+URxvt.color2:		#7f9f7f
+URxvt.color3:		#f0dfaf
+URxvt.color4:		#8cd0d3
+URxvt.color5:		#dc8cc3
+URxvt.color6:		#93e0e3
+URxvt.color7:		#dcdccc
+URxvt.color8:		#4f4f4f
+URxvt.color9:		#cc9393
+URxvt.color10:		#bfebbf
+URxvt.color11:		#e0cf9f
+URxvt.color12:		#7cb8bb
+URxvt.color13:		#dc8cc3
+URxvt.color14:		#93e0e3
+URxvt.color15:		#dcdccc

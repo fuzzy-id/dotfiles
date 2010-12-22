@@ -1,6 +1,9 @@
 import XMonad
+import XMonad.Hooks.DynamicLog
 
-main = xmonad $ defaultConfig
-     { terminal = "urxvt",
-       modMask = mod4Mask,
-       normalBorderColor  = "black" }
+main = xmonad =<< xmobar myConfig
+
+myConfig = defaultConfig {
+  terminal = "urxvt",
+  modMask = mod4Mask,
+  normalBorderColor = "black" }

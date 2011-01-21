@@ -4,5 +4,3 @@ alias uiae='setxkbmap de'
 alias asdf='setxkbmap lv && xmodmap ~/dotfiles/neo_de.xmodmap'
 alias urxt="urxvt -bg white -fg black -fn 'xft:Bitstream Vera Sans Mono:pixelsize=14' -sl 10000 +sb"
 alias ls='ls --color=auto'
-alias lc2m2_root='ssh -6 -Y root@lc2m2.zdv.uni-mainz.de'
-alias lc2m2_user='ssh -Y bachth@lc2m2.zdv.uni-mainz.de'

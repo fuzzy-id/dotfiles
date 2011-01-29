@@ -40,3 +40,18 @@ interactive("org-capture", "Clip url, title, and selection to capture via org-pr
 	    });
 
 define_key(content_buffer_normal_keymap, "C-c c", "org-capture");
+
+define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
+require("clicks-in-new-buffer.js");
+
+define_webjump("youtube", "http://www.youtube.com/results?search_query=%s&search=Search");
+define_webjump("leoen",
+	       "http://pda.leo.org/?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&relink=on&sectHdr=off&spellToler=std&search=%s");
+define_webjump("leoes",
+	       "http://pda.leo.org/?lp=esde&lang=de&searchLoc=0&cmpType=relaxed&relink=on&sectHdr=off&spellToler=std&search=%s");
+define_webjump("plato",
+	       "http://plato.stanford.edu/search/searcher.py?query=%s");
+
+require("page-modes/wikipedia.js");
+wikipedia_webjumps_format = "wp-%s"; // controls the names of the webjumps.  default is "wikipedia-%s".
+define_wikipedia_webjumps("en", "de", "es"); // For English, German and French.

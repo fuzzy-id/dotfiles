@@ -1,6 +1,16 @@
-Config { commands = [ Run Date "%a %b %_d %H:%M" "date" 10
-                    ] 
+Config { font = "-*-Fixed-R-Normal-*-11-*-*-*-*-*-*-*"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = TopW L 90
+       , lowerOnStart = True
+       , commands = [ Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Date "%a %b %_d %H:%M:%S" "date" 10
+                    , Run StdinReader
+		    , Run CommandReader "~/dotfiles/battstatt.sh" "BATT"
+                    ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%date%"
+       , template = "%StdinReader% }{ <fc=#ffff00>%BATT%</fc> %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc>"
        }

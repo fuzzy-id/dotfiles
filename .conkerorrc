@@ -55,3 +55,10 @@ define_webjump("plato",
 require("page-modes/wikipedia.js");
 wikipedia_webjumps_format = "wp-%s"; // controls the names of the webjumps.  default is "wikipedia-%s".
 define_wikipedia_webjumps("en", "de", "es"); // For English, German and French.
+
+define_webjump("emacswiki",
+    "http://www.google.com/cse?cx=004774160799092323420%3A6-ff2s0o6yi"+
+        "&q=%s&sa=Search&siteurl=emacswiki.org%2F",
+    $alternative="http://www.emacswiki.org/");
+
+define_webjump("blekko", "http://blekko.com/ws/%s", $alternative = "http://blekko.com/");

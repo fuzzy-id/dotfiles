@@ -1,7 +1,9 @@
 trayer --edge top --align right --SetDockType true --SetPartialStrut true \
     --expand true --width 10 --transparent true --tint 0x191970 --height 12&
-wicd-gtk&
-transmission --minimized &
+if test "$(hostname)" = zigon* ; then
+	wicd-gtk&
+	transmission --minimized &
+fi
 xmodmap ~/dotfiles/neo_de.xmodmap
 xset b off
 exec xmonad

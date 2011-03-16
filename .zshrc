@@ -14,8 +14,11 @@ SAVEHIST=1000000
 
 export PROMPT='%F{blue}%n@%m%F{green}:%F{red}%~ %F{white}'
 export CLICOLOR='on'
-export BIBINPUTS="${HOME}/privatsache/bibtex"
 
 if [[ -f ~/.alias ]]; then
     source ~/.alias
+fi
+
+if [[ -f ~/.environment ]]; then
+    source ~/.environment
 fi

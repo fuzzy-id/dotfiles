@@ -6,7 +6,6 @@ if test "$(hostname)" = zigon; then
 	transmission --minimized &
 fi
 
-emacs --daemon &
 xmodmap ~/dotfiles/neo_de.xmodmap
 xset b off
 exec xmonad

@@ -5,3 +5,7 @@ export BIBINPUTS="${HOME}/privatsache/bibtex"
 
 export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c"
+
+if [[ -d "${HOME}/bin" ]]; then
+	export PATH="${HOME}/bin:${PATH}"
+fi

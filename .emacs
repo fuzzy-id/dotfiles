@@ -1,2 +1,4 @@
 ;; loading personal init-file
-(load "~/.emacs.d/vince-init")
+
+(when (load (expand-file-name "~/.emacs.d/vince-init"))
+  (vince-init-all))

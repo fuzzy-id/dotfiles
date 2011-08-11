@@ -2,5 +2,4 @@
 alias ts="rdesktop -g 95% -u bachth@uni-mainz.de -k de ts.zdv.uni-mainz.de&"
 alias uiae='setxkbmap de'
 alias asdf='setxkbmap lv && xmodmap ~/dotfiles/neo_de.xmodmap'
-alias urxt="urxvt -bg white -fg black -fn 'xft:Bitstream Vera Sans Mono:pixelsize=14' -sl 10000 +sb"
-#alias ls='ls --color=auto'
+alias ls='ls --color=auto'

@@ -1,5 +1,5 @@
 # Defining all aliases here
-alias ts='[ -d "${HOME}/.rdesktop" ] && echo "rm -Riv \"${HOME}/.rdesktop\"; rdesktop -g 95% -u bachth@uni-mainz.de -k de ts.zdv.uni-mainz.de&'
+alias ts='[ -d "${HOME}/.rdesktop" ] && rm -Riv "${HOME}/.rdesktop/*"; rdesktop -g 95% -u bachth@uni-mainz.de -k de ts.zdv.uni-mainz.de&'
 alias uiae='setxkbmap de'
 alias asdf='setxkbmap lv && xmodmap ~/dotfiles/neo_de.xmodmap'
 alias ls='ls --color=auto'

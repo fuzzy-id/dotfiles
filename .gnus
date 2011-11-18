@@ -16,7 +16,8 @@
 		(nnimap-address "mail.students.uni-mainz.de")
 		(nnimap-server-port 993)
 		(nnimap-stream ssl)
-		(nnimap-authinfo-file "~/.authinfo.gpg"))))
+		(nnimap-authinfo-file "~/.authinfo.gpg"))
+	(nnml "")))
 
 (setq send-mail-function 'smtpmail-send-it)
 (setq message-send-mail-function 'smtpmail-send-it)

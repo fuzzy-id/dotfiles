@@ -8,11 +8,11 @@
      (expand-file-name "~/.emacs.d/elpa/package.el"))
   (package-initialize))
 
-(when (load (expand-file-name "~/.emacs.d/vince-init"))
+(when (load (expand-file-name "~/.emacs.d/vince-init.el"))
   (vince-init-all))
 
 (add-to-list 'semanticdb-project-roots 
-	     "/home/vince/src/pyramid_wp/wp_frontend/wp_frontend")
+	     "/home/vince/src/pyramid_install/wp_frontend/wp_frontend")
 (semantic-add-system-include 
  "/home/vince/src/pyramid_install/lib/python2.7" 'python-mode)
 

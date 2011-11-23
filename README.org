@@ -3,7 +3,9 @@
 
 So, when starting to use git we see its usefulness and start to throw
 everything at first in a git repo. And so it happened with my
-configuration files.
+configuration files. Now, when I do a new installation or start to use
+another computer, I just install some packages, clone this repo and
+everything's set up.
 
 ** My setup
 

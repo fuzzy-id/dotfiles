@@ -1,0 +1,32 @@
+
+* Fuzzy_ID's configuration
+
+So, when starting to use git we see its usefulness and start to throw
+everything at first in a git repo. And so it happened with my
+configuration files.
+
+** My setup
+
+I use 
++ xmonad as window manager,
++ xmobar as a small and light-weight status bar, with a trayer in it,
++ gmrun launches applications,
++ zsh as a shell,
++ unicode-rxvt as x terminal emulator,
++ the Neo layout[fn:1] as keyboard layout.
+
+I don't use a graphical log in manager, but rather log in via the
+console and manually do a ~startx~. This is important, as this way
++ ~/.zprofile and
++ ~/.xinitrc 
+are evaluated. Which do the setup of the above setup.
+
+I use Conkeror[fn:2] for web browsing and Emacs for everything
+else. :) Anyway, my Emacs configuration is a bit more complicated, so
+I keep it in a separate git repo and do only a load in my ~.emacs~
+
+* Footnotes
+
+[fn:1] http://neo-layout.org/
+
+[fn:2] http://conkeror.org/

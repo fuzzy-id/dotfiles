@@ -9,38 +9,6 @@ minibuffer_auto_complete_default = true;
 url_completion_use_bookmarks = true;
 url_completion_use_history = true;
 
-editor_shell_command = "emacsclient -c";
-
-interactive("reload-config", "reload .conkerorrc",
-	    function(I) {
-		load_rc();
-		I.window.minibuffer.message("config reloaded.");
-	    }
-	   );
-
-define_key(default_global_keymap, "C-c r", "reload_config");
-
-// integration with org-mode
-
-function org_capture(url, title, selection, window) {
-    var cmd_str = 
-	'emacsclient \"org-protocol:/capture:/w/'+url+'/'+title+'/'+selection+'\"';
-    if (window != null) {
-	window.minibuffer.message('Issuing ' + cmd_str);
-    }
-    shell_command_blind(cmd_str);
-}
-
-interactive("org-capture", "Clip url, title, and selection to capture via org-protocol",
-	    function(I) {
-		org_capture(encodeURIComponent(I.buffer.document.title),
-			    encodeURIComponent(I.buffer.document.title),
-			    encodeURIComponent(I.buffer.top_frame.getSelection()),
-			    I.window);
-	    });
-
-define_key(content_buffer_normal_keymap, "C-c c", "org-capture");
-
 define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
 require("clicks-in-new-buffer.js");
 

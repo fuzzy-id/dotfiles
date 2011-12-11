@@ -17,3 +17,4 @@
  "/home/vince/src/pyramid_install/lib/python2.7" 'python-mode)
 
 (setq erc-nick "fuzzy_id")
+(setq erc-autojoin-channels-alist '(("freenode.net" "#pyramid")))

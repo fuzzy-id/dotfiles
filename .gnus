@@ -3,8 +3,7 @@
 (setq user-mail-address "bachth@uni-mainz.de")
 (setq user-full-name "Thomas Bach")
 
-(setq gnus-select-method
-      '(nntp "news.informatik.uni-mainz.de"))
+(setq gnus-select-method '(nntp "news.uni-mainz.de"))
 
 (setq gnus-secondary-select-methods
       '((nnimap "uni-mainz.de"
@@ -17,7 +16,8 @@
 		(nnimap-server-port 993)
 		(nnimap-stream ssl)
 		(nnimap-authinfo-file "~/.authinfo.gpg"))
-	(nnml "")))
+	(nnml "")
+	(nntp "news.informatik.uni-mainz.de")))
 
 (setq send-mail-function 'smtpmail-send-it)
 (setq message-send-mail-function 'smtpmail-send-it)

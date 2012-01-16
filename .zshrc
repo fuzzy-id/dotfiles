@@ -22,3 +22,7 @@ fi
 if [[ -f ~/.environment ]]; then
     source ~/.environment
 fi
+
+if [[ -f /etc/bash_completion.d/virtualenvwrapper ]]; then
+    source /etc/bash_completion.d/virtualenvwrapper
+fi

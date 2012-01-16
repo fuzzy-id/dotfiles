@@ -3,10 +3,10 @@
 
 # this alias is to startup rdesktop fast and easy, the 'rm' part handles
 # a bug in rdesktop
-alias ts='[ -d "${HOME}/.rdesktop" ] && rm -Riv "${HOME}/.rdesktop/*"; rdesktop -g 95% -u bachth@uni-mainz.de -k de ts.zdv.uni-mainz.de&'
+alias ts='[ -d "${HOME}/.rdesktop" ] && rm -Riv ${HOME}/.rdesktop/*; rdesktop -g 95% -u bachth@uni-mainz.de -k de ts.zdv.uni-mainz.de&'
 
 # switch between my preferred neo layout and dummy de
-alias uiae='setxkbmap de'
-alias asdf='setxkbmap lv && xmodmap ~/dotfiles/neo_de.xmodmap'
+alias uiae='setxkbmap de; xmodmap -e "keycode 166 = Super_R"'
+alias asdf='setxkbmap lv && xmodmap ~/dotfiles/neo_de.xmodmap; xmodmap -e "keycode 166 = Super_R"'
 
 alias ls='ls --color=auto'

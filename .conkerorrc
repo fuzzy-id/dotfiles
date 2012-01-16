@@ -1,6 +1,3 @@
-// hihgly inspired by:
-// http://emacs-fu.blogspot.com/2010/12/conkeror-web-browsing-emacs-way.html
-
 homepage = "http://www.tagesschau.de/"
 
 clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND;
@@ -24,9 +21,22 @@ require("page-modes/wikipedia.js");
 wikipedia_webjumps_format = "wp-%s"; // controls the names of the webjumps.  default is "wikipedia-%s".
 define_wikipedia_webjumps("en", "de", "es"); // For English, German and French.
 
-define_webjump("emacswiki",
-    "http://www.google.com/cse?cx=004774160799092323420%3A6-ff2s0o6yi"+
-        "&q=%s&sa=Search&siteurl=emacswiki.org%2F",
-    $alternative="http://www.emacswiki.org/");
+// org-protocol stuff
+function org_capture (url, title, selection, window) {
+    var cmd_str =
+        'emacsclient \"org-protocol:/capture:/w/'+url+'/'+title+'/'+selection+'\"';
+    if (window != null) {
+      window.minibuffer.message('Issuing ' + cmd_str);
+    }
+    shell_command_blind(cmd_str);
+}
 
-define_webjump("blekko", "http://blekko.com/ws/%s", $alternative = "http://blekko.com/");
+interactive("org-capture", "Clip url, title, and selection to capture via org-protocol",
+          function (I) {
+              org_capture(encodeURIComponent(I.buffer.display_uri_string),
+                        encodeURIComponent(I.buffer.document.title),
+                                encodeURIComponent(I.buffer.top_frame.getSelection()),
+                        I.window);
+          });
+// capture with C-c c
+define_key(content_buffer_normal_keymap, "C-c c", "org-capture");

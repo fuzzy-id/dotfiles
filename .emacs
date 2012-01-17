@@ -132,3 +132,16 @@
 
 (setq erc-nick "fuzzy_id")
 (setq erc-autojoin-channels-alist '(("freenode.net" "#pyramid")))
+
+(setq org-export-latex-classes
+      '(("scrartcl" 
+	 "\\documentclass[11pt]{scrartcl}\n\\usepackage[utf8]{inputenc}\n\\usepackage[T1]{fontenc}\n\\usepackage{graphicx}\n\\usepackage{longtable}\n\\usepackage{float}\n\\usepackage{wrapfig}\n\\usepackage{soul}\n\\usepackage{amssymb}\n\\usepackage{hyperref}\n\\usepackage{babel}\n\\usepackage{amsmath}\n\n\\everymath{\\displaystyle}\n"
+	 ("\\section{%s}" . "\\section*{%s}")
+	 ("\\subsection{%s}" . "\\subsection*{%s}")
+	 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+	 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+	("beamer"
+	 "\\documentclass{beamer}"
+	 org-beamer-sectioning)))
+(setq org-export-latex-default-class "scrartcl")

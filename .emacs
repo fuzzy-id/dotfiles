@@ -42,7 +42,7 @@
 				 (file+headline (concat vince-org-directory "/notes.org") "Tasks")
 				 "* %?\n  + created :: %U")
 				("d" "Todo item for domatix." entry
-				 (file+headline (expand-file-name "~/gits/domatix/gtd.org") "Tasks")
+				 (file+headline (expand-file-name "~/gits/domatix/domatix.org") "Tasks")
 				 "* TODO %?\n  + created :: %U\n")
 				("w" "" entry ;; 'w' for 'org-protocol'
 				 (file+headline (concat vince-org-directory "www.org") "Notes")
@@ -52,7 +52,7 @@
 			(setq org-agenda-start-on-weekday nil)
 			(setq org-agenda-files 
 			      (list (concat vince-org-directory "/gtd.org")
-				    (expand-file-name "~/gits/domatix/gtd.org")))
+				    (expand-file-name "~/gits/domatix/domatix.org")))
 			(setq org-agenda-custom-commands
 			      '(("u" "Unscheduled TODO entries." 
 				 alltodo "" 

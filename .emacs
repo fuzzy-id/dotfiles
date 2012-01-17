@@ -7,6 +7,12 @@
      (end-of-buffer)
      (eval-print-last-sexp))))
 
+;; to avoid
+;; Symbol's value as variable is void: custom-theme-load-path
+(setq custom-theme-load-path '())
+;; to avoid anoying popups when decrypting gpg
+(setenv "GPG_AGENT_INFO" nil)
+
 (setq el-get-sources
       '((:name color-theme-zenburn
 	       :depends "color-theme"

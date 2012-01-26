@@ -6,6 +6,9 @@ export BIBINPUTS="${HOME}/privatsache/bibtex"
 export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c"
 
+# edit file with root privs
+export SUDO_EDITOR="emacsclient -c -a emacs"
+
 if [[ -d "${HOME}/bin" ]]; then
 	export PATH="${HOME}/bin:${PATH}"
 fi

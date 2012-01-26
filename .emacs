@@ -7,6 +7,10 @@
      (end-of-buffer)
      (eval-print-last-sexp))))
 
+(if (file-exists-p "/usr/bin/conkeror")
+    (setq browse-url-browser-function 'browse-url-generic
+	  browse-url-generic-program "/usr/bin/conkeror"))
+
 ;; to avoid
 ;; Symbol's value as variable is void: custom-theme-load-path
 (setq custom-theme-load-path '())
@@ -28,14 +32,13 @@
 			(require 'bbdb-gnus)
 			(require 'bbdb-message)
 			(require 'bbdb-migrate)
-			(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-			(add-hook 'gnus-startup-hook 'bbdb-insinuate-message)
-			(add-hook 'message-setup-hook 'bbdb-define-all-aliases)
 			(bbdb-initialize 'gnus 'message)))
 	(:name org-mode
 	       :after (lambda ()
 			(require 'org-exp-bibtex)
 			(setq vince-org-directory (expand-file-name "~/org"))
+			(setq org-todo-keywords
+			      '((sequence "TODO(t!)" "WAIT(w@)" "|" "DONE(d!)" "CANCELED(c@)")))
 			(setq org-capture-templates
 			      '(("t" "Enter a Todo Item")
 				("tp" "Plain todo item" entry
@@ -62,7 +65,8 @@
 				 ((org-agenda-skip-function '(org-agenda-skip-entry-if
 							      'scheduled
 							      'deadline))))))
-			(define-key global-map (kbd "C-c l") 'org-store-link)))
+			(define-key global-map (kbd "C-c l") 'org-store-link)
+			(require 'org-drill)))
 	(:name ropemacs
 	       :depends "pymacs"
 	       :features "pymacs"
@@ -155,15 +159,6 @@
 	     "\\documentclass{beamer}"
 	     org-beamer-sectioning)))
 (setq org-export-latex-default-class "scrartcl")
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("/home/vince/gits/domatix/domatix.org"))))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)

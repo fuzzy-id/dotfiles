@@ -67,18 +67,6 @@
 							      'deadline))))))
 			(define-key global-map (kbd "C-c l") 'org-store-link)
 			(require 'org-drill)))
-	(:name ropemacs
-	       :depends "pymacs"
-	       :features "pymacs"
-	       :after (lambda ()
-			(defun vince-load-ropemacs ()
-			  "Load pymacs and ropemacs"
-			  (interactive)
-			  (pymacs-load "ropemacs" "rope-")
-			  ;; Automatically save project python buffers 
-			  ;; before refactorings
-			  (setq ropemacs-confirm-saving 'nil))
-			(global-set-key "\C-xpl" 'vince-load-ropemacs)))
 	(:name cedet
 	       :load "common/cedet.el"
 	       :info "common"

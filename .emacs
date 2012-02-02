@@ -93,7 +93,8 @@
 			(global-set-key (kbd "C-c m n") 'emms-next)
 			(global-set-key (kbd "C-c m p") 'emms-previous)
 			(define-key dired-mode-map
-			  (kbd "C-c m a") 'emms-add-dired)))))
+			  (kbd "C-c m a") 'emms-add-dired)))
+	(:name twittering-mode)))
 
 (el-get)
 

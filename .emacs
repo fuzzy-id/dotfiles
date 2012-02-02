@@ -56,8 +56,8 @@
 				("w" "" entry ;; 'w' for 'org-protocol'
 				 (file+headline (concat vince-org-directory "www.org") "Notes")
 				 "* %^{Title}\n\n  Source: %u, %c\n\n  %i")))
-			(define-key global-map "\C-cc" 'org-capture)
-			(global-set-key "\C-ca" 'org-agenda)
+			(define-key global-map (kbd "C-c c") 'org-capture)
+			(global-set-key (kbd "C-c a") 'org-agenda)
 			(setq org-agenda-start-on-weekday nil)
 			(setq org-agenda-custom-commands
 			      '(("u" "Unscheduled TODO entries." 
@@ -150,3 +150,5 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
+(setq tramp-default-method "ssh")

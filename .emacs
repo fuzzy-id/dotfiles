@@ -18,7 +18,10 @@
 (setenv "GPG_AGENT_INFO" nil)
 
 (setq el-get-sources
-      '((:name color-theme-zenburn
+      '((:name autopair
+	       :post-init (lambda () 
+			    (autopair-global-mode t)))
+	(:name color-theme-zenburn
 	       :depends "color-theme"
 	       :type git
 	       :url "https://github.com/bbatsov/zenburn-emacs.git"
@@ -148,7 +151,22 @@
 	     org-beamer-sectioning)))
 (setq org-export-latex-default-class "scrartcl")
 
+(setq tramp-default-method "ssh")
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(setq ibuffer-saved-filter-groups
+      '(("default"
+	 ("django-zoook"
+	  (filename . "src/django-zoook"))
+	 ("emacs-config"
+	  (or
+	   (filename . ".emacs")
+	   (filename . ".emacs.d/"))))))
+(add-hook 'ibuffer-mode-hook
+	  (lambda ()
+	    (ibuffer-switch-to-saved-filter-groups "default")))
+
+
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-
-(setq tramp-default-method "ssh")

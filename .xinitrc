@@ -12,6 +12,7 @@ if test "$(hostname)" = "jubold"; then
     # wicd is much smaller then network manager
     wicd-client -t &
     pidgin &
+    twinkle &
     transmission -m &
 fi
 

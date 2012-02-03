@@ -13,7 +13,7 @@ if test "$(hostname)" = "jubold"; then
     wicd-client -t &
     pidgin &
     twinkle &
-    transmission -m &
+    transmission-gtk --minimized &
 fi
 
 # set neo layout as default (to switch use aliases defined in .zshrc)

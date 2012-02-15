@@ -169,3 +169,79 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
+(add-to-list 'auto-mode-alist '("\\.pt\\'" . html-mode))
+
+(defun vince-p-imap-process (process)
+  "Returns `t' if `process' is an imap-process."
+  (and (processp process)
+       (string-match-p "^imap.*$" (process-name process))))
+
+(defun vince-search-imap-processes-in-list (processes)
+  "Searches for imap processes in the given list."
+  (if processes
+      (let ((this-process (pop processes)))
+	(if (vince-p-imap-process this-process)
+	    (cons this-process
+		  (vince-search-imap-processes-in-list processes))
+	  (vince-search-imap-processes-in-list processes)))))
+
+(defun vince-kill-imap-processes ()
+  "Kills all running imap processes."
+  (interactive)
+  (mapcar 'kill-process 
+	  (vince-search-imap-processes-in-list (process-list))))
+
+(defun vince-eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+(defun vince-count-paragraph-starts-region (beginning end)  
+  "Returns the number of starting paragraphs in the region."
+  (save-excursion
+    (let ((count 0))
+      (goto-char beginning)
+      (while (and (< (point) end)
+                    (re-search-forward "^\\s *\n.*?\\w" end t))
+        (setq count (1+ count)))
+      (symbol-value 'count))))
+
+(defun vince-org-cite-paragraph ()
+  (interactive)
+  (let* ((heading (vince-org-get-previous-heading))
+	 (paragraph (vince-org-get-this-paragraph-count))
+	 (cite (format "%s, §%d" heading paragraph)))
+    (kill-new cite)
+    (message (format "Pushed '%s' to kill ring." cite))))
+
+(defun vince-org-get-previous-heading ()
+  (save-excursion
+    (outline-previous-heading)
+    (let* ((re-todo (mapconcat 'identity org-todo-keywords-1 "\\|"))
+	   (start (re-search-forward (format "\\*+\\s +\\(%s\\)*\\s *" re-todo)))
+	   (end (re-search-forward "\\s *\\($\\|–\\)"))
+	   (header (buffer-substring start end)))
+      (replace-regexp-in-string "~–$" ""
+				(replace-regexp-in-string "\\s " "~" header)))))
+
+(defun vince-org-get-this-paragraph-count ()
+  (save-excursion
+    (let ((point-in-paragraph (point)))
+      (outline-previous-heading)
+      (vince-count-paragraph-starts-region (point) point-in-paragraph))))
+
+(defun vince-paragraph-start-counter (beginning end)
+  (interactive "r")
+  (let ((paragraph-starts (vince-count-paragraph-starts-region beginning end)))
+    (cond ((zerop paragraph-starts)
+	   (message "There are no starts."))
+	  ((= 1 paragraph-starts)
+	   (message "There is 1 start."))
+	  (t
+	   (message "There are %d starts." paragraph-starts)))))

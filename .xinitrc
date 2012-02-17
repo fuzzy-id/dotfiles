@@ -14,6 +14,7 @@ if test "$(hostname)" = "jubold"; then
     pidgin &
     twinkle &
     transmission-gtk --minimized &
+    dropbox.py start &
 fi
 
 # set neo layout as default (to switch use aliases defined in .zshrc)

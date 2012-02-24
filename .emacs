@@ -70,6 +70,13 @@
 							      'deadline))))))
 			(define-key global-map (kbd "C-c l") 'org-store-link)
 			(require 'org-drill)))
+	(:name org2blog
+	       :depends "xml-rpc-el"
+	       :after (lambda ()
+			(setq org2blog/wp-blog-alist
+			      '(("vinceblog"
+				 :url "http://vincebox.webfactional.com/xmlrpc.php"
+				 :username "admin")))))
 	(:name cedet
 	       :load "common/cedet.el"
 	       :info "common"

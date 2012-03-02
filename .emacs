@@ -41,23 +41,30 @@
 			(require 'org-exp-bibtex)
 			(setq vince-org-directory (expand-file-name "~/org"))
 			(setq org-todo-keywords
-			      '((sequence "TODO(t!)" "WAIT(w@)" "|" "DONE(d!)" "CANCELED(c@)")))
+			      '((sequence "TODO(t!)" "WAIT(w@)" 
+					  "|" "DONE(d!)" "CANCELED(c@)")))
 			(setq org-capture-templates
 			      '(("t" "Enter a Todo Item")
 				("tp" "Plain todo item" entry
-				 (file+headline (concat vince-org-directory "/gtd.org") "Tasks")
+				 (file+headline (concat vince-org-directory 
+							"/gtd.org") "Tasks")
 				 "* TODO %?\n  + created :: %U")
 				("tl" "Todo item with a link to the current buffer" entry
-				 (file+headline (concat vince-org-directory "/gtd.org") "Tasks")
+				 (file+headline (concat vince-org-directory 
+							"/gtd.org") "Tasks")
 				 "* TODO %?\n  + created :: %U\n  + link :: %A")
 				("n" "Just a simple note" entry
-				 (file+headline (concat vince-org-directory "/notes.org") "Tasks")
+				 (file+headline (concat vince-org-directory 
+							"/notes.org") "Tasks")
 				 "* %?\n  + created :: %U")
 				("d" "Todo item for domatix." entry
-				 (file+headline (expand-file-name "~/gits/domatix/domatix.org") "Tasks")
+				 (file+headline (expand-file-name 
+						 "~/gits/domatix/domatix.org") 
+						"Tasks")
 				 "* TODO %?\n  + created :: %U\n")
 				("w" "" entry ;; 'w' for 'org-protocol'
-				 (file+headline (concat vince-org-directory "www.org") "Notes")
+				 (file+headline (concat vince-org-directory 
+							"www.org") "Notes")
 				 "* %^{Title}\n\n  Source: %u, %c\n\n  %i")))
 			(define-key global-map (kbd "C-c c") 'org-capture)
 			(global-set-key (kbd "C-c a") 'org-agenda)
@@ -169,7 +176,9 @@
 	 ("emacs-config"
 	  (or
 	   (filename . ".emacs")
-	   (filename . ".emacs.d/"))))))
+	   (filename . ".emacs.d/")))
+	 ("dx_backup_web"
+	  (filename . "src/dx_backup_web")))))
 (add-hook 'ibuffer-mode-hook
 	  (lambda ()
 	    (ibuffer-switch-to-saved-filter-groups "default")))

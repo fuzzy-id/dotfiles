@@ -14,7 +14,7 @@ main = do
 	      	      	{ ppOutput = hPutStrLn xmproc
 			, ppTitle = xmobarColor "green" "" . shorten 50
 			}
-	    , terminal = "urxvt"
+	    , terminal = "urxvtc"
 	    , modMask = mod4Mask
 	    , normalBorderColor = "black"
 	    }

@@ -1,7 +1,7 @@
 # ~/.xinitrc
 # This trayer is for xmonad + xmobar and holds things as transmission, wicd, etc.
 trayer --edge top --align right --SetDockType true --SetPartialStrut true \
-    --expand true --width 10 --transparent true --tint 0x191970 --height 12&
+    --expand true --width 15 --transparent true --tint 0x191970 --height 12&
 
 # here comes machine dependent stuff, as I currently only have one
 # machine, this is pretty straight forward
@@ -15,6 +15,7 @@ if test "$(hostname)" = "jubold"; then
     twinkle &
     transmission-gtk --minimized &
     dropbox.py start &
+    urxvtd -q -o -f
 fi
 
 # set neo layout as default (to switch use aliases defined in .zshrc)

@@ -1,5 +1,5 @@
-URxvt.font: xft:DejaVu Sans Mono:antialias=true:pixelsize=13
-URxvt.boldFont: xft:DejaVu Sans Mono:style=bold:antialias=true:pixelsize=13
+URxvt.font: xft:DejaVu Sans Mono:antialias=true:pixelsize=15
+URxvt.boldFont: xft:DejaVu Sans Mono:style=bold:antialias=true:pixelsize=15
 
 URxvt.scrollBar:	false
 URxvt.cursorBlink:	false
@@ -24,3 +24,5 @@ URxvt.color12:		#7cb8bb
 URxvt.color13:		#dc8cc3
 URxvt.color14:		#93e0e3
 URxvt.color15:		#dcdccc
+
+emacs.font: DejaVu Sans Mono-12

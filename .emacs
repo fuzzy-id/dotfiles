@@ -53,10 +53,15 @@
 				 (file+headline (concat vince-org-directory 
 							"/gtd.org") "Tasks")
 				 "* TODO %?\n  + created :: %U\n  + link :: %A")
-				("n" "Just a simple note" entry
+				("n" "Just a simple note")
+				("np" "Plain note." entry
 				 (file+headline (concat vince-org-directory 
-							"/notes.org") "Tasks")
+							"/notes.org") "New")
 				 "* %?\n  + created :: %U")
+				("nl" "A note with a link." entry
+				 (file+headline (concat vince-org-directory
+							"/notes.org") "New")
+				 "* %?\n  + created :: %U\n  + link :: %A")
 				("d" "Todo item for domatix." entry
 				 (file+headline (expand-file-name 
 						 "~/gits/domatix/domatix.org") 
@@ -154,6 +159,7 @@
 		     "\\usepackage{amssymb}\n"
 		     "\\usepackage{hyperref}\n"
 		     "\\usepackage{babel}\n"
+		     "\\usepackage[nodayofweek]{datetime}\n"
 		     "\\usepackage{amsmath}\n\n"
 		     "\\everymath{\\displaystyle}\n")
 	     '("\\section{%s}" . "\\section*{%s}")

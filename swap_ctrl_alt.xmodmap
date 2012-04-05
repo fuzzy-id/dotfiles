@@ -1,12 +1,9 @@
-! Swap Control_L with Alt_L
-remove Control = Control_L
-remove Mod1 = Alt_L
-remove Mod1 = Meta_L
+remove Control = Control_R
+remove Mod5 = ISO_Level3_Shift
 
-keysym Control_L = Alt_L
-keysym Alt_L = Control_L
-keysym Meta_L = Control_L
+keysym ISO_Level3_Shift = Control_R
+keysym Control_R = ISO_Level3_Shift  ISO_Level3_Shift  ISO_Group_Shift   ISO_Group_Shift  ISO_Level3_Lock  NoSymbol
 
-add Control = Control_L
-add Mod1 = Alt_L
-add Mod1 = Meta_L
+add Mod5 = ISO_Level3_Shift
+add Control = Control_R
+

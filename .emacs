@@ -39,6 +39,11 @@
 	(:name org-mode
 	       :after (lambda ()
 			(require 'org-exp-bibtex)
+			(setq org-latex-to-pdf-process
+			      '("pdflatex -interaction nonstopmode -output-directory %o %f"
+				"bibtex %b"
+				"pdflatex -interaction nonstopmode -output-directory %o %f"
+				"pdflatex -interaction nonstopmode -output-directory %o %f"))
 			(setq vince-org-directory (expand-file-name "~/org"))
 			(setq org-todo-keywords
 			      '((sequence "TODO(t!)" "WAIT(w@)" 

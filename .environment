@@ -1,5 +1,6 @@
+# -*- mode: shell-script; -*-
 # In this file we define all kinds of environment variables
-# that are independent of our shell
+# that are independent of our shell.
 
 export BIBINPUTS="${HOME}/privatsache/bibtex"
 
@@ -11,4 +12,8 @@ export SUDO_EDITOR="emacsclient -c -a emacs"
 
 if [[ -d "${HOME}/bin" ]]; then
 	export PATH="${HOME}/bin:${PATH}"
+fi
+
+if [[ -d "${HOME}/.cabal/bin" ]]; then
+    export PATH="${HOME}/.cabal/bin:${PATH}"
 fi

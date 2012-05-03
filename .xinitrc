@@ -19,7 +19,11 @@ if test "$(hostname)" = "jubold"; then
 fi
 
 # set neo layout as default (to switch use aliases defined in .zshrc)
-xmodmap ~/dotfiles/neo_de.xmodmap
+setxkbmap lv
+xmodmap "${HOME}/dotfiles/neo_de.xmodmap"
+xmodmap -e "keycode 166 = Super_R"
+xmodmap "${HOME}/dotfiles/swap_ctrl_altgr.xmodmap"
+
 # disable beeps
 xset b off
 exec xmonad

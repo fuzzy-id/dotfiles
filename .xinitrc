@@ -3,6 +3,11 @@
 trayer --edge top --align right --SetDockType true --SetPartialStrut true \
     --expand true --width 15 --transparent true --tint 0x191970 --height 12&
 
+# set neo layout as default (to switch use aliases defined in .zshrc)
+setxkbmap lv
+xmodmap "${HOME}/dotfiles/neo_de.xmodmap"
+xmodmap "${HOME}/dotfiles/swap_ctrl_altgr.xmodmap"
+
 # here comes machine dependent stuff, as I currently only have one
 # machine, this is pretty straight forward
 if test "$(hostname)" = "jubold"; then
@@ -18,11 +23,12 @@ if test "$(hostname)" = "jubold"; then
     urxvtd -q -o -f
 fi
 
-# set neo layout as default (to switch use aliases defined in .zshrc)
-setxkbmap lv
-xmodmap "${HOME}/dotfiles/neo_de.xmodmap"
-xmodmap -e "keycode 166 = Super_R"
-xmodmap "${HOME}/dotfiles/swap_ctrl_altgr.xmodmap"
+if test "$(hostname)" = "roku"; then
+    xmodmap -e "keycode 166 = Super_R"
+    wicd-client -t&    
+    pidgin&
+    urxvtd -q -o -f
+fi
 
 # disable beeps
 xset b off

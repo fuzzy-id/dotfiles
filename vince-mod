@@ -1,0 +1,43 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:       vince-mod
+# Required-Start: $remote_fs cpufrequtils
+# Required-Stop:
+# Default-Start:  2 3 4 5
+# Default-Stop:
+# Short-Description: set some personal modifications
+# Description: Collections of personal settings that should be set at
+# 	       start up.
+### END INIT INFO
+# 
+
+DESC="personal modifications"
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# use lsb-base
+. /lib/lsb/init-functions
+
+set_cpufreq_up_and_down_threshold() {
+    current_governor=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+    if [ -n "$current_governor" ] && [ $current_governor = "conservative" ]; then
+	log_action_cont_msg "Setting cpufreq thresholds."
+	echo -n 95 > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
+	echo -n 40 > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
+    fi
+}
+
+case "$1" in
+    start|force-reload|restart|reload)
+	log_action_begin_msg "$DESC: "
+	set_cpufreq_up_and_down_threshold
+	log_action_end_msg 0 ""
+	;;
+    stop)
+	;;
+    *)
+	echo "Usage: $0 {start|stop|restart|reload|force-reload}"
+	exit 1
+esac
+
+exit 0

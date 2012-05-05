@@ -195,7 +195,8 @@
 	    (ibuffer-switch-to-saved-filter-groups "default")))
 
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(if (file-exists-p custom-file)
+    (load custom-file))
 
 (add-to-list 'auto-mode-alist '("\\.pt\\'" . html-mode))
 

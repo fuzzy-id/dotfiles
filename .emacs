@@ -44,7 +44,7 @@
 				"bibtex %b"
 				"pdflatex -interaction nonstopmode -output-directory %o %f"
 				"pdflatex -interaction nonstopmode -output-directory %o %f"))
-			(setq vince-org-directory (expand-file-name "~/org"))
+			(setq vince-org-directory (expand-file-name "~/crypt/org"))
 			(setq org-todo-keywords
 			      '((sequence "TODO(t!)" "WAIT(w@)" 
 					  "|" "DONE(d!)" "CANCELED(c@)")))
@@ -67,14 +67,9 @@
 				 (file+headline (concat vince-org-directory
 							"/notes.org") "New")
 				 "* %?\n  + created :: %U\n  + link :: %A")
-				("d" "Todo item for domatix." entry
-				 (file+headline (expand-file-name 
-						 "~/gits/domatix/domatix.org") 
-						"Tasks")
-				 "* TODO %?\n  + created :: %U\n")
 				("w" "" entry ;; 'w' for 'org-protocol'
 				 (file+headline (concat vince-org-directory 
-							"www.org") "Notes")
+							"/www.org") "Notes")
 				 "* %^{Title}\n\n  Source: %u, %c\n\n  %i")))
 			(define-key global-map (kbd "C-c c") 'org-capture)
 			(global-set-key (kbd "C-c a") 'org-agenda)

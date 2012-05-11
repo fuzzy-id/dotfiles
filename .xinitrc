@@ -8,27 +8,26 @@ setxkbmap lv
 xmodmap "${HOME}/dotfiles/neo_de.xmodmap"
 xmodmap "${HOME}/dotfiles/swap_ctrl_altgr.xmodmap"
 
-# here comes machine dependent stuff, as I currently only have one
-# machine, this is pretty straight forward
-if test "$(hostname)" = "jubold"; then
-    # I don't have a 'win'-key on my IBM T41, that's why I have to
-    # remap this one:
-    xmodmap -e "keycode 166 = Super_R"
-    # wicd is much smaller then network manager
-    wicd-client -t &
-    pidgin &
-    twinkle &
-    transmission-gtk --minimized &
-    dropbox.py start &
-    urxvtd -q -o -f
-fi
-
-if test "$(hostname)" = "roku"; then
-    xmodmap -e "keycode 166 = Super_R"
-    wicd-client -t&    
-    pidgin&
-    urxvtd -q -o -f
-fi
+# Here comes machine dependent stuff:
+case "$(hostname)" in
+    "jubold" )
+	wicd-client -t &
+	pidgin &
+	twinkle &
+	transmission-gtk --minimized &
+	dropbox.py start &
+	urxvtd -q -o -f
+	;;
+    "roku" )
+	xmodmap -e "keycode 166 = Super_R"
+	wicd-client -t&    
+	pidgin&
+	urxvtd -q -o -f
+	;;
+    "torux" )
+	pidgin&
+	urxvtd -q -o -f
+esac
 
 # disable beeps
 xset b off

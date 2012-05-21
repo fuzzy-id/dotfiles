@@ -26,23 +26,18 @@ function start-dropbox {
 
 # Here comes machine dependent stuff:
 case "$(hostname)" in
-    "jubold" )
-	wicd-client -t &
-	pidgin &
-	twinkle &
-	transmission-gtk --minimized &
-	dropbox.py start &
-	urxvtd -q -o -f
-	;;
     "roku" )
 	xmodmap -e "keycode 166 = Super_R"
 	wicd-client -t&    
 	pidgin&
+	twinkle &
+	transmission-gtk --minimized &
 	start-dropbox
 	urxvtd -q -o -f
 	;;
     "taris" )
 	pidgin&
+	start-dropbox
 	urxvtd -q -o -f
 esac
 

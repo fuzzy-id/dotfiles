@@ -17,7 +17,7 @@ setxkbmap lv
 xmodmap "${HOME}/dotfiles/neo_de.xmodmap"
 xmodmap "${HOME}/dotfiles/swap_ctrl_altgr.xmodmap"
 
-function start-dropbox {
+start_dropbox() {
     local dropboxd="${HOME}/.dropbox-dist/dropboxd"
     if [[ -e "${dropboxd}" ]]; then
 	${dropboxd} start&
@@ -32,12 +32,12 @@ case "$(hostname)" in
 	pidgin&
 	twinkle &
 	transmission-gtk --minimized &
-	start-dropbox
+	start_dropbox
 	urxvtd -q -o -f
 	;;
     "taris" )
 	pidgin&
-	start-dropbox
+	start_dropbox
 	urxvtd -q -o -f
 esac
 

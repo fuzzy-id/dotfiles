@@ -19,7 +19,7 @@ xmodmap "${HOME}/dotfiles/swap_ctrl_altgr.xmodmap"
 
 start_dropbox() {
     local dropboxd="${HOME}/.dropbox-dist/dropboxd"
-    if [[ -e "${dropboxd}" ]]; then
+    if test -e "${dropboxd}"; then
 	${dropboxd} start&
     fi
 }

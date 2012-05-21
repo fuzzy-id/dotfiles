@@ -4,7 +4,7 @@ trayer --edge top \
 	--align right \
 	--SetDockType true \
 	--SetPartialStrut false \
-	--expand true \
+	--expand false \
 	--widthtype pixel \
 	--width 120 \
 	--heighttype pixel \
@@ -30,7 +30,7 @@ case "$(hostname)" in
 	xmodmap -e "keycode 166 = Super_R"
 	wicd-client -t&    
 	pidgin&
-	twinkle &
+	twinkle --hide &
 	transmission-gtk --minimized &
 	start_dropbox
 	urxvtd -q -o -f

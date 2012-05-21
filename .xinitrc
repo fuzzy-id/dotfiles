@@ -1,7 +1,16 @@
 # ~/.xinitrc
 # This trayer is for xmonad + xmobar and holds things as transmission, wicd, etc.
-trayer --edge top --align right --SetDockType true --SetPartialStrut true \
-    --expand true --width 15 --transparent true --tint 0x191970 --height 12&
+trayer --edge top \
+	--align right \
+	--SetDockType true \
+	--SetPartialStrut false \
+	--expand true \
+	--widthtype pixel \
+	--width 120 \
+	--heighttype pixel \
+	--height 10 \
+	--transparent true \
+	--tint 0x191970 &
 
 # set neo layout as default (to switch use aliases defined in .zshrc)
 setxkbmap lv
@@ -24,7 +33,7 @@ case "$(hostname)" in
 	pidgin&
 	urxvtd -q -o -f
 	;;
-    "torux" )
+    "taris" )
 	pidgin&
 	urxvtd -q -o -f
 esac

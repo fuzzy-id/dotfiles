@@ -17,6 +17,13 @@ setxkbmap lv
 xmodmap "${HOME}/dotfiles/neo_de.xmodmap"
 xmodmap "${HOME}/dotfiles/swap_ctrl_altgr.xmodmap"
 
+function start-dropbox {
+    local dropboxd="${HOME}/.dropbox-dist/dropboxd"
+    if [[ -e "${dropboxd}" ]]; then
+	${dropboxd} start&
+    fi
+}
+
 # Here comes machine dependent stuff:
 case "$(hostname)" in
     "jubold" )
@@ -31,6 +38,7 @@ case "$(hostname)" in
 	xmodmap -e "keycode 166 = Super_R"
 	wicd-client -t&    
 	pidgin&
+	start-dropbox
 	urxvtd -q -o -f
 	;;
     "taris" )

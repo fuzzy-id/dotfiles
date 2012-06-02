@@ -171,6 +171,11 @@
 	     "\\documentclass{beamer}"
 	     org-beamer-sectioning)))
 (setq org-export-latex-default-class "scrartcl")
+(setq org-export-latex-listings 'minted)
+(setq org-export-latex-minted-options
+      '(("frame" "lines")
+	("fontsize" "\\footnotesize")
+	("linenos" "")))
 
 (setq tramp-default-method "ssh")
 

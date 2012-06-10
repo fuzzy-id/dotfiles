@@ -41,9 +41,8 @@
 			(require 'org-exp-bibtex)
 			(setq org-latex-to-pdf-process
 			      '("pdflatex -interaction nonstopmode -output-directory %o %f"
-				"bibtex %b"
-				"pdflatex -interaction nonstopmode -output-directory %o %f"
-				"pdflatex -interaction nonstopmode -output-directory %o %f"))
+				"bibtex %b"))
+			(setq org-export-pdf-remove-logfiles 'nil)
 			(setq vince-org-directory (expand-file-name "~/crypt/org"))
 			(setq org-todo-keywords
 			      '((sequence "TODO(t!)" "WAIT(w@)" 
@@ -161,21 +160,26 @@
 		     "\\usepackage{babel}\n"
 		     "\\usepackage[nodayofweek]{datetime}\n"
 		     "\\usepackage{amsmath}\n\n"
+		     "\\usepackage{minted}\n"
 		     "\\everymath{\\displaystyle}\n")
 	     '("\\section{%s}" . "\\section*{%s}")
 	     '("\\subsection{%s}" . "\\subsection*{%s}")
 	     '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
 	     '("\\paragraph{%s}" . "\\paragraph*{%s}")
 	     '("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-	    '("beamer"
-	     "\\documentclass{beamer}"
-	     org-beamer-sectioning)))
+	    (list 
+	     "beamer"
+	     (concat "\\documentclass{beamer}\n"
+		     "\\usepackage{babel}\n"
+		     "\\usepackage{minted}\n")
+	     'org-beamer-sectioning)))
 (setq org-export-latex-default-class "scrartcl")
 (setq org-export-latex-listings 'minted)
 (setq org-export-latex-minted-options
-      '(("frame" "lines")
+      '(("frame" "none")
 	("fontsize" "\\footnotesize")
-	("linenos" "")))
+	("linenos" "false")))
+(setq org-export-pdf-remove-logfiles 'nil)
 
 (setq tramp-default-method "ssh")
 

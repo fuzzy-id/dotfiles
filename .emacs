@@ -147,21 +147,7 @@
 (setq org-export-latex-classes
       (list (list 
 	     "scrartcl" 
-	     (concat "\\documentclass[11pt]{scrartcl}\n"
-		     "\\usepackage[utf8]{inputenc}\n"
-		     "\\usepackage[T1]{fontenc}\n"
-		     "\\usepackage{graphicx}\n"
-		     "\\usepackage{longtable}\n"
-		     "\\usepackage{float}\n"
-		     "\\usepackage{wrapfig}\n"
-		     "\\usepackage{soul}\n"
-		     "\\usepackage{amssymb}\n"
-		     "\\usepackage{hyperref}\n"
-		     "\\usepackage{babel}\n"
-		     "\\usepackage[nodayofweek]{datetime}\n"
-		     "\\usepackage{amsmath}\n\n"
-		     "\\usepackage{minted}\n"
-		     "\\everymath{\\displaystyle}\n")
+	     (concat "\\documentclass[11pt]{scrartcl}\n")
 	     '("\\section{%s}" . "\\section*{%s}")
 	     '("\\subsection{%s}" . "\\subsection*{%s}")
 	     '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -170,17 +156,25 @@
 	    (list 
 	     "beamer"
 	     (concat "\\documentclass{beamer}\n"
-		     "\\usepackage{babel}\n"
-		     "\\usepackage{minted}\n")
-	     'org-beamer-sectioning)))
+		     "\\usepackage{babel}\n")
+	     'org-beamer-sectioning)
+	    (list 
+	     "acmsmall" 
+	     (concat "\\documentclass{acmsmall}\n")
+	     '("\\section{%s}" . "\\section*{%s}")
+	     '("\\subsection{%s}" . "\\subsection*{%s}")
+	     '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	     '("\\paragraph{%s}" . "\\paragraph*{%s}")
+	     '("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 (setq org-export-latex-default-class "scrartcl")
+(add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
+(add-to-list 'org-export-latex-packages-alist '("" "centernot" t))
 (setq org-export-latex-listings 'minted)
 (setq org-export-latex-minted-options
       '(("frame" "none")
 	("fontsize" "\\footnotesize")
 	("linenos" "false")))
 (setq org-export-pdf-remove-logfiles 'nil)
-
 (setq tramp-default-method "ssh")
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)

@@ -42,7 +42,33 @@
 			(setq org-latex-to-pdf-process
 			      '("pdflatex -interaction nonstopmode -output-directory %o %f"
 				"bibtex %b"))
+			(require 'org-latex)
+			(add-to-list 'org-export-latex-classes
+				     '("scrartcl" 
+				       (concat "\\documentclass[11pt]{scrartcl}\n")
+				       '("\\section{%s}" . "\\section*{%s}")
+				       '("\\subsection{%s}" . "\\subsection*{%s}")
+				       '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
+				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+			(add-to-list 'org-export-latex-classes
+				     '("acmsmall" 
+				       (concat "\\documentclass{acmsmall}\n")
+				       '("\\section{%s}" . "\\section*{%s}")
+				       '("\\subsection{%s}" . "\\subsection*{%s}")
+				       '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
+				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+			(setq org-export-latex-default-class "scrartcl")
+			(add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
+			(add-to-list 'org-export-latex-packages-alist '("" "centernot" t))
+			(setq org-export-latex-listings 'minted)
+			(setq org-export-latex-minted-options
+			      '(("frame" "none")
+				("fontsize" "\\footnotesize")
+				("linenos" "false")))
 			(setq org-export-pdf-remove-logfiles 'nil)
+
 			(setq vince-org-directory (expand-file-name "~/crypt/org"))
 			(setq org-todo-keywords
 			      '((sequence "TODO(t!)" "WAIT(w@)" 
@@ -144,37 +170,6 @@
 (setq erc-nick "fuzzy_id")
 (setq erc-autojoin-channels-alist '(("freenode.net" "#pyramid")))
 
-(setq org-export-latex-classes
-      (list (list 
-	     "scrartcl" 
-	     (concat "\\documentclass[11pt]{scrartcl}\n")
-	     '("\\section{%s}" . "\\section*{%s}")
-	     '("\\subsection{%s}" . "\\subsection*{%s}")
-	     '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	     '("\\paragraph{%s}" . "\\paragraph*{%s}")
-	     '("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-	    (list 
-	     "beamer"
-	     (concat "\\documentclass{beamer}\n"
-		     "\\usepackage{babel}\n")
-	     'org-beamer-sectioning)
-	    (list 
-	     "acmsmall" 
-	     (concat "\\documentclass{acmsmall}\n")
-	     '("\\section{%s}" . "\\section*{%s}")
-	     '("\\subsection{%s}" . "\\subsection*{%s}")
-	     '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	     '("\\paragraph{%s}" . "\\paragraph*{%s}")
-	     '("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-(setq org-export-latex-default-class "scrartcl")
-(add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
-(add-to-list 'org-export-latex-packages-alist '("" "centernot" t))
-(setq org-export-latex-listings 'minted)
-(setq org-export-latex-minted-options
-      '(("frame" "none")
-	("fontsize" "\\footnotesize")
-	("linenos" "false")))
-(setq org-export-pdf-remove-logfiles 'nil)
 (setq tramp-default-method "ssh")
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)

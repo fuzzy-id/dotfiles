@@ -175,14 +175,10 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (setq ibuffer-saved-filter-groups
       '(("default"
-	 ("django-zoook"
-	  (filename . "src/django-zoook"))
 	 ("emacs-config"
 	  (or
 	   (filename . ".emacs")
-	   (filename . ".emacs.d/")))
-	 ("dx_backup_web"
-	  (filename . "src/dx_backup_web")))))
+	   (filename . ".emacs.d/"))))))
 (add-hook 'ibuffer-mode-hook
 	  (lambda ()
 	    (ibuffer-switch-to-saved-filter-groups "default")))

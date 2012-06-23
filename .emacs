@@ -21,6 +21,9 @@
       '((:name autopair
 	       :post-init (lambda () 
 			    (autopair-global-mode t)))
+	(:name auctex
+	       :post-init (lambda ()
+			    (setq-default TeX-master nil)))
 	(:name color-theme-zenburn
 	       :depends "color-theme"
 	       :type git
@@ -52,15 +55,15 @@
 				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
 				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 			(add-to-list 'org-export-latex-classes
-				     '("acmsmall" 
-				       (concat "\\documentclass{acmsmall}\n")
+				     (list "acmtog"
+				       (concat "\\documentclass{acmtog}\n"
+					       "\\usepackage{amsmath}\n")
 				       '("\\section{%s}" . "\\section*{%s}")
 				       '("\\subsection{%s}" . "\\subsection*{%s}")
 				       '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
 				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
 				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 			(setq org-export-latex-default-class "scrartcl")
-			(add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
 			(add-to-list 'org-export-latex-packages-alist '("" "centernot" t))
 			(setq org-export-latex-listings 'minted)
 			(setq org-export-latex-minted-options

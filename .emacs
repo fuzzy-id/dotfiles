@@ -28,8 +28,7 @@
 	       :depends "color-theme"
 	       :type git
 	       :url "https://github.com/bbatsov/zenburn-emacs.git"
-	       :features "color-theme-zenburn"
-	       :post-init (lambda () (color-theme-zenburn)))
+	       :post-init (lambda () (load-theme 'zenburn)))
 	(:name bbdb
 	       :build (list "autoconf"
 			    (concat "./configure --with-emacs=" el-get-emacs)

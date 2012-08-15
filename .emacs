@@ -29,15 +29,6 @@
 	       :type git
 	       :url "https://github.com/bbatsov/zenburn-emacs.git"
 	       :post-init (lambda () (load-theme 'zenburn)))
-	(:name bbdb
-	       :build (list "autoconf"
-			    (concat "./configure --with-emacs=" el-get-emacs)
-			    "make all")
-	       :after (lambda ()
-			(require 'bbdb-gnus)
-			(require 'bbdb-message)
-			(require 'bbdb-migrate)
-			(bbdb-initialize 'gnus 'message)))
 	(:name org-mode
 	       :after (lambda ()
 			(require 'org-exp-bibtex)
@@ -139,8 +130,7 @@
 			(global-set-key (kbd "C-c m n") 'emms-next)
 			(global-set-key (kbd "C-c m p") 'emms-previous)
 			(define-key dired-mode-map
-			  (kbd "C-c m a") 'emms-add-dired)))
-	(:name twittering-mode)))
+			  (kbd "C-c m a") 'emms-add-dired)))))
 
 (el-get)
 

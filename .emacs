@@ -62,6 +62,16 @@
 				       '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
 				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
 				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+			(add-to-list 'org-export-latex-classes
+				     (list "scrreprt"
+				       (concat "\\documentclass{scrreprt}\n"
+					       "\\usepackage{amsmath}\n")
+				       '("\\chapter{%s}" . "\\chapter*{%s}")
+				       '("\\section{%s}" . "\\section*{%s}")
+				       '("\\subsection{%s}" . "\\subsection*{%s}")
+				       '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
+				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 			(setq org-export-latex-default-class "scrartcl")
 			(add-to-list 'org-export-latex-packages-alist '("" "centernot" t))
 			(setq org-export-latex-listings 'minted)
@@ -189,8 +199,11 @@
 (if (file-exists-p custom-file)
     (load custom-file))
 
-(add-to-list 'auto-mode-alist '("\\.pt\\'" . html-mode))
-
+(add-to-list 'auto-mode-alist 
+	     '("\\.pt\\'" . html-mode))
+(add-to-list 'auto-mode-alist 
+	     '("\\.*mutt-*" 
+	       . mail-mode))
 (defun vince-p-imap-process (process)
   "Returns `t' if `process' is an imap-process."
   (and (processp process)

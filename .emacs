@@ -180,6 +180,8 @@
     (load custom-file))
 
 (add-to-list 'auto-mode-alist '("\\.pt\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("/tmp/mutt-.*" . mail-mode))
+(add-hook 'mail-mode-hook 'turn-on-auto-fill)
 
 (defun vince-p-imap-process (process)
   "Returns `t' if `process' is an imap-process."

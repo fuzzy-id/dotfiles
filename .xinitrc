@@ -8,7 +8,7 @@ trayer --edge top \
 	--widthtype pixel \
 	--width 120 \
 	--heighttype pixel \
-	--height 12 \
+	--height 13 \
 	--transparent true \
 	--tint 0x191970 &
 

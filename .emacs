@@ -33,8 +33,7 @@
 	       :after (lambda ()
 			(require 'org-exp-bibtex)
 			(setq org-latex-to-pdf-process
-			      '("pdflatex -interaction nonstopmode -output-directory %o %f"
-				"bibtex %b"))
+			      '("cd %o && latexmk -pdf %f"))
 			(require 'org-latex)
 			(add-to-list 'org-export-latex-classes
 				     '("scrartcl" 
@@ -71,6 +70,7 @@
 				("fontsize" "\\footnotesize")
 				("linenos" "false")))
 			(setq org-export-pdf-remove-logfiles 'nil)
+			(add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))
 
 			(setq vince-org-directory (expand-file-name "~/crypt/org"))
 			(setq org-todo-keywords

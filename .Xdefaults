@@ -25,4 +25,4 @@ URxvt.color13:		#dc8cc3
 URxvt.color14:		#93e0e3
 URxvt.color15:		#dcdccc
 
-emacs.font: DejaVu Sans Mono-12
+emacs.font: DejaVu Sans Mono-15

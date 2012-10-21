@@ -19,16 +19,19 @@
 
 (setq el-get-sources
       '((:name autopair
-	       :post-init (lambda () 
+	       :post-init (progn
 			    (autopair-global-mode t)))
 	(:name auctex
-	       :post-init (lambda ()
+	       :post-init (progn
 			    (setq-default TeX-master nil)))
 	(:name color-theme-zenburn
 	       :depends "color-theme"
 	       :type git
 	       :url "https://github.com/bbatsov/zenburn-emacs.git"
-	       :post-init (lambda () (load-theme 'zenburn)))
+	       :post-init (progn
+			    (load-theme 'zenburn)))
+	(:name zenburn-theme
+	       :post-init (load-theme 'zenburn))
 	(:name org-mode
 	       :after (lambda ()
 			(require 'org-exp-bibtex)

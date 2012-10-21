@@ -33,7 +33,7 @@
 	(:name zenburn-theme
 	       :post-init (load-theme 'zenburn))
 	(:name org-mode
-	       :after (lambda ()
+	       :after (progn
 			(require 'org-exp-bibtex)
 			(setq org-latex-to-pdf-process
 			      '("cd %o && latexmk -pdf %f"))
@@ -115,7 +115,7 @@
 			(require 'org-drill)))
 	(:name org2blog
 	       :depends "xml-rpc-el"
-	       :after (lambda ()
+	       :after (progn
 			(setq org2blog/wp-blog-alist
 			      '(("vinceblog"
 				 :url "http://vincebox.webfactional.com/xmlrpc.php"
@@ -123,7 +123,7 @@
 	(:name cedet
 	       :load "common/cedet.el"
 	       :info "common"
-	       :after (lambda ()
+	       :after (progn
 			(srecode-minor-mode 1)
 			(semantic-load-enable-guady-code-helpers)
 			(global-cedet-m3-minor-mode 1)
@@ -135,7 +135,7 @@
 			(add-hook 'speedbar-vc-directory-enable-hook
 				  'vince-speedbar-vc-git)))
 	(:name emms
-	       :after (lambda ()
+	       :after (progn
 			(emms-standard)
 			(emms-default-players)
 			(global-set-key (kbd "C-c m l") 'emms-playlist-mode-go)

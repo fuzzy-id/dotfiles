@@ -26,7 +26,7 @@ start_dropbox() {
 
 # Here comes machine dependent stuff:
 case "$(hostname)" in
-    "roku" )
+    "palmo" )
 	xmodmap -e "keycode 166 = Super_R"
 	wicd-client -t&    
 	pidgin&

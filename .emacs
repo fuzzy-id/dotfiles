@@ -25,13 +25,7 @@
 	       :post-init (progn
 			    (setq-default TeX-master nil)))
 	(:name color-theme-zenburn
-	       :depends "color-theme"
-	       :type git
-	       :url "https://github.com/bbatsov/zenburn-emacs.git"
-	       :post-init (progn
-			    (load-theme 'zenburn)))
-	(:name zenburn-theme
-	       :post-init (load-theme 'zenburn))
+	       :after (load-theme 'zenburn))
 	(:name org-mode
 	       :after (progn
 			(require 'org-exp-bibtex)

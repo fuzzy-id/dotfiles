@@ -145,6 +145,7 @@
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
   (ido-mode 1)
+  (column-number-mode 1)
   (setq vc-follow-symlinks 't)
   (require 'uniquify)
   (setq uniquify-buffer-name-style

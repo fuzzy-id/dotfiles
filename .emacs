@@ -33,7 +33,7 @@
 			      '("cd %o && latexmk -pdf %f"))
 			(require 'org-latex)
 			(add-to-list 'org-export-latex-classes
-				     '("scrartcl" 
+				     (list "scrartcl" 
 				       (concat "\\documentclass[11pt]{scrartcl}\n")
 				       '("\\section{%s}" . "\\section*{%s}")
 				       '("\\subsection{%s}" . "\\subsection*{%s}")
@@ -115,19 +115,19 @@
 				 :url "http://vincebox.webfactional.com/xmlrpc.php"
 				 :username "admin")))))
 	(:name cedet
-	       :load "common/cedet.el"
-	       :info "common"
-	       :after (progn
-			(srecode-minor-mode 1)
-			(semantic-load-enable-guady-code-helpers)
-			(global-cedet-m3-minor-mode 1)
-			(global-ede-mode 1)
-			(add-hook 'speedbar-load-hook
-				  (lambda () (require 'semantic-sb)))
-			(defun vince-speedbar-vc-git (directory)
-			  (file-exists-p (concat directory ".git")))
-			(add-hook 'speedbar-vc-directory-enable-hook
-				  'vince-speedbar-vc-git)))
+	       :after (progn 
+			;; Add further minor-modes to be enabled by semantic-mode.
+			;; See doc-string of `semantic-default-submodes' for other things
+			;; you can use here.
+			(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+			(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+			(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
+
+			;; Enable Semantic
+			(semantic-mode 1)
+
+			;; Enable EDE (Project Management) features
+			(global-ede-mode 1)))
 	(:name emms
 	       :after (progn
 			(emms-standard)
@@ -179,6 +179,7 @@
 	  (or
 	   (filename . ".emacs")
 	   (filename . ".emacs.d/"))))))
+
 (add-hook 'ibuffer-mode-hook
 	  (lambda ()
 	    (ibuffer-switch-to-saved-filter-groups "default")))

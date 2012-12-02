@@ -34,31 +34,31 @@
 			(require 'org-latex)
 			(add-to-list 'org-export-latex-classes
 				     (list "scrartcl" 
-				       (concat "\\documentclass[11pt]{scrartcl}\n")
-				       '("\\section{%s}" . "\\section*{%s}")
-				       '("\\subsection{%s}" . "\\subsection*{%s}")
-				       '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
-				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+					   (concat "\\documentclass[11pt]{scrartcl}\n")
+					   '("\\section{%s}" . "\\section*{%s}")
+					   '("\\subsection{%s}" . "\\subsection*{%s}")
+					   '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+					   '("\\paragraph{%s}" . "\\paragraph*{%s}")
+					   '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 			(add-to-list 'org-export-latex-classes
 				     (list "acmtog"
-				       (concat "\\documentclass{acmtog}\n"
-					       "\\usepackage{amsmath}\n")
-				       '("\\section{%s}" . "\\section*{%s}")
-				       '("\\subsection{%s}" . "\\subsection*{%s}")
-				       '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
-				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+					   (concat "\\documentclass{acmtog}\n"
+						   "\\usepackage{amsmath}\n")
+					   '("\\section{%s}" . "\\section*{%s}")
+					   '("\\subsection{%s}" . "\\subsection*{%s}")
+					   '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+					   '("\\paragraph{%s}" . "\\paragraph*{%s}")
+					   '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 			(add-to-list 'org-export-latex-classes
 				     (list "scrreprt"
-				       (concat "\\documentclass{scrreprt}\n"
-					       "\\usepackage{amsmath}\n")
-				       '("\\chapter{%s}" . "\\chapter*{%s}")
-				       '("\\section{%s}" . "\\section*{%s}")
-				       '("\\subsection{%s}" . "\\subsection*{%s}")
-				       '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
-				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+					   (concat "\\documentclass{scrreprt}\n"
+						   "\\usepackage{amsmath}\n")
+					   '("\\chapter{%s}" . "\\chapter*{%s}")
+					   '("\\section{%s}" . "\\section*{%s}")
+					   '("\\subsection{%s}" . "\\subsection*{%s}")
+					   '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+					   '("\\paragraph{%s}" . "\\paragraph*{%s}")
+					   '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 			(setq org-export-latex-default-class "scrartcl")
 			(add-to-list 'org-export-latex-packages-alist '("" "centernot" t))
 			(setq org-export-latex-listings 'minted)
@@ -228,7 +228,7 @@
     (let ((count 0))
       (goto-char beginning)
       (while (and (< (point) end)
-                    (re-search-forward "^\\s *\n.*?\\w" end t))
+		  (re-search-forward "^\\s *\n.*?\\w" end t))
         (setq count (1+ count)))
       (symbol-value 'count))))
 

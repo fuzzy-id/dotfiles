@@ -66,6 +66,7 @@
 			      '(("frame" "none")
 				("fontsize" "\\footnotesize")
 				("linenos" "false")))
+			(add-to-list 'org-export-latex-packages-alist '("" "minted"))
 			(setq org-export-pdf-remove-logfiles 'nil)
 			(add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))
 

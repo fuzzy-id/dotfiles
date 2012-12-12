@@ -60,7 +60,10 @@
 				       '("\\paragraph{%s}" . "\\paragraph*{%s}")
 				       '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 			(setq org-export-latex-default-class "scrartcl")
-			(add-to-list 'org-export-latex-packages-alist '("" "centernot" t))
+			(add-to-list 
+			 'org-export-latex-packages-alist '("" "centernot" t))
+			(add-to-list 
+			 'org-export-latex-packages-alist '("" "minted"))
 			(setq org-export-latex-listings 'minted)
 			(setq org-export-latex-minted-options
 			      '(("frame" "none")

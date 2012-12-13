@@ -9,13 +9,17 @@ url_completion_use_history = true;
 define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
 require("clicks-in-new-buffer.js");
 
-define_webjump("youtube", "http://www.youtube.com/results?search_query=%s&search=Search");
+define_webjump("youtube", 
+	       "http://www.youtube.com/results?search_query=%s&search=Search");
 define_webjump("leoen",
 	       "http://pda.leo.org/?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&relink=on&sectHdr=off&spellToler=std&search=%s");
 define_webjump("leoes",
 	       "http://pda.leo.org/?lp=esde&lang=de&searchLoc=0&cmpType=relaxed&relink=on&sectHdr=off&spellToler=std&search=%s");
 define_webjump("plato",
 	       "http://plato.stanford.edu/search/searcher.py?query=%s");
+define_webjump("stackoverflow",
+	       "http://stackoverflow.com/search?q=%s", 
+	       $alternative="http://stackoverflow.com");
 
 require("page-modes/wikipedia.js");
 wikipedia_webjumps_format = "wp-%s"; // controls the names of the webjumps.  default is "wikipedia-%s".

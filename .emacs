@@ -131,7 +131,9 @@
 			(semantic-mode 1)
 
 			;; Enable EDE (Project Management) features
-			(global-ede-mode 1)))
+			(global-ede-mode 1)
+			;; Originally on `RET' but redefined by autopair
+			(global-set-key (kbd "M-RET") 'semantic-complete-inline-done)))
 	(:name emms
 	       :after (progn
 			(emms-standard)

@@ -62,14 +62,12 @@
 			(setq org-export-latex-default-class "scrartcl")
 			(add-to-list 
 			 'org-export-latex-packages-alist '("" "centernot" t))
-			(add-to-list 
-			 'org-export-latex-packages-alist '("" "minted"))
+			(add-to-list 'org-export-latex-packages-alist '("" "minted"))
 			(setq org-export-latex-listings 'minted)
 			(setq org-export-latex-minted-options
 			      '(("frame" "none")
 				("fontsize" "\\footnotesize")
 				("linenos" "false")))
-			(add-to-list 'org-export-latex-packages-alist '("" "minted"))
 			(setq org-export-pdf-remove-logfiles 'nil)
 			(add-to-list 'org-file-apps 
 				     '("\\.pdf\\(\\.gz\\)\\'" . "evince %s"))

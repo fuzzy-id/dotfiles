@@ -118,21 +118,30 @@
 				 :url "http://vincebox.webfactional.com/xmlrpc.php"
 				 :username "admin")))))
 	(:name cedet
-	       :after (progn 
-			;; Add further minor-modes to be enabled by semantic-mode.
-			;; See doc-string of `semantic-default-submodes' for other things
-			;; you can use here.
-			(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
-			(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
-			(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
+	       :type bzr
+	       :url
+	       "bzr://cedet.bzr.sourceforge.net/bzrroot/cedet/code/trunk"
+	       :build
+	       `(("sh" "-c" "touch `find . -name Makefile`")
+		 ("make" ,(format "EMACS=%s" (shell-quote-argument el-get-emacs)) "clean-all")
+		 ("make" ,(format "EMACS=%s" (shell-quote-argument el-get-emacs))))
+	       :features cedet-devel-load
+	       :after
+	       (progn 
+		 ;; Add further minor-modes to be enabled by semantic-mode.
+		 ;; See doc-string of `semantic-default-submodes' for other things
+		 ;; you can use here.
+		 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+		 (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+		 (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
 
-			;; Enable Semantic
-			(semantic-mode 1)
+		 ;; Enable Semantic
+		 (semantic-mode 1)
 
-			;; Enable EDE (Project Management) features
-			(global-ede-mode 1)
-			;; Originally on `RET' but redefined by autopair
-			(global-set-key (kbd "M-RET") 'semantic-complete-inline-done)))
+		 ;; Enable EDE (Project Management) features
+		 (global-ede-mode 1)
+		 ;; Originally on `RET' but redefined by autopair
+		 (global-set-key (kbd "M-RET") 'semantic-complete-inline-done)))
 	(:name emms
 	       :after (progn
 			(emms-standard)

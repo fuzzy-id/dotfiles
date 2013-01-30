@@ -19,139 +19,145 @@
 
 (setq el-get-sources
       '((:name autopair
-	       :post-init (progn
-			    (autopair-global-mode t)))
+         :post-init (progn
+		      (autopair-global-mode t)))
 	(:name auctex
-	       :post-init (progn
-			    (setq-default TeX-master nil)))
+	 :post-init (progn
+		      (setq-default TeX-master nil)))
 	(:name color-theme-zenburn
-	       :after (load-theme 'zenburn))
+	 :after (load-theme 'zenburn))
 	(:name org-mode
-	       :after (progn
-			(require 'org-exp-bibtex)
-			(setq org-latex-to-pdf-process
-			      '("cd %o && latexmk -pdf %f"))
-			(require 'org-latex)
-			(add-to-list 'org-export-latex-classes
-				     (list "scrartcl" 
-					   (concat "\\documentclass[11pt]{scrartcl}\n")
-					   '("\\section{%s}" . "\\section*{%s}")
-					   '("\\subsection{%s}" . "\\subsection*{%s}")
-					   '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-					   '("\\paragraph{%s}" . "\\paragraph*{%s}")
-					   '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-			(add-to-list 'org-export-latex-classes
-				     (list "acmtog"
-					   (concat "\\documentclass{acmtog}\n"
-						   "\\usepackage{amsmath}\n")
-					   '("\\section{%s}" . "\\section*{%s}")
-					   '("\\subsection{%s}" . "\\subsection*{%s}")
-					   '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-					   '("\\paragraph{%s}" . "\\paragraph*{%s}")
-					   '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-			(add-to-list 'org-export-latex-classes
-				     (list "scrreprt"
-					   (concat "\\documentclass{scrreprt}\n"
-						   "\\usepackage{amsmath}\n")
-					   '("\\chapter{%s}" . "\\chapter*{%s}")
-					   '("\\section{%s}" . "\\section*{%s}")
-					   '("\\subsection{%s}" . "\\subsection*{%s}")
-					   '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-					   '("\\paragraph{%s}" . "\\paragraph*{%s}")
-					   '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-			(setq org-export-latex-default-class "scrartcl")
-			(add-to-list 
-			 'org-export-latex-packages-alist '("" "centernot" t))
-			(add-to-list 'org-export-latex-packages-alist '("" "minted"))
-			(setq org-export-latex-listings 'minted)
-			(setq org-export-latex-minted-options
-			      '(("frame" "none")
-				("fontsize" "\\footnotesize")
-				("linenos" "false")))
-			(setq org-export-pdf-remove-logfiles 'nil)
-			(add-to-list 'org-file-apps 
-				     '("\\.pdf\\(\\.gz\\)\\'" . "evince %s"))
+	 :after (progn
+		  (require 'org-exp-bibtex)
+		  (setq org-latex-to-pdf-process
+			'("cd %o && latexmk -pdf %f"))
+		  (require 'org-latex)
+		  (add-to-list 
+		   'org-export-latex-classes
+		   (list "scrartcl" 
+			 (concat "\\documentclass[11pt]{scrartcl}\n")
+			 '("\\section{%s}" . "\\section*{%s}")
+			 '("\\subsection{%s}" . "\\subsection*{%s}")
+			 '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+			 '("\\paragraph{%s}" . "\\paragraph*{%s}")
+			 '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+		  (add-to-list
+		   'org-export-latex-classes
+		   (list "acmtog"
+			 (concat "\\documentclass{acmtog}\n"
+				 "\\usepackage{amsmath}\n")
+			 '("\\section{%s}" . "\\section*{%s}")
+			 '("\\subsection{%s}" . "\\subsection*{%s}")
+			 '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+			 '("\\paragraph{%s}" . "\\paragraph*{%s}")
+			 '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+		  (add-to-list
+		   'org-export-latex-classes
+		   (list "scrreprt"
+			 (concat "\\documentclass{scrreprt}\n"
+				 "\\usepackage{amsmath}\n")
+			 '("\\chapter{%s}" . "\\chapter*{%s}")
+			 '("\\section{%s}" . "\\section*{%s}")
+			 '("\\subsection{%s}" . "\\subsection*{%s}")
+			 '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+			 '("\\paragraph{%s}" . "\\paragraph*{%s}")
+			 '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+		  (setq org-export-latex-default-class "scrartcl")
+		  (add-to-list 'org-export-latex-packages-alist
+			       '("" "centernot" t))
+		  (add-to-list 'org-export-latex-packages-alist
+			       '("" "minted"))
+		  (setq org-export-latex-listings 'minted)
+		  (setq org-export-latex-minted-options
+			'(("frame" "none")
+			  ("fontsize" "\\footnotesize")
+			  ("linenos" "false")))
+		  (setq org-export-pdf-remove-logfiles 'nil)
+		  (add-to-list 'org-file-apps 
+			       '("\\.pdf\\(\\.gz\\)\\'" . "evince %s"))
 
-			(setq vince-org-directory (expand-file-name "~/crypt/org"))
-			(setq org-todo-keywords
-			      '((sequence "TODO(t!)" "WAIT(w@)" 
-					  "|" "DONE(d!)" "CANCELED(c@)")))
-			(setq org-capture-templates
-			      '(("t" "Enter a Todo Item")
-				("tp" "Plain todo item" entry
-				 (file+headline (concat vince-org-directory 
-							"/gtd.org") "Tasks")
-				 "* TODO %?\n  + created :: %U")
-				("tl" "Todo item with a link to the current buffer" entry
-				 (file+headline (concat vince-org-directory 
-							"/gtd.org") "Tasks")
-				 "* TODO %?\n  + created :: %U\n  + link :: %A")
-				("n" "Just a simple note")
-				("np" "Plain note." entry
-				 (file+headline (concat vince-org-directory 
-							"/notes.org") "New")
-				 "* %?\n  + created :: %U")
-				("nl" "A note with a link." entry
-				 (file+headline (concat vince-org-directory
-							"/notes.org") "New")
-				 "* %?\n  + created :: %U\n  + link :: %A")
-				("w" "" entry ;; 'w' for 'org-protocol'
-				 (file+headline (concat vince-org-directory 
-							"/www.org") "Notes")
-				 "* %^{Title}\n\n  Source: %u, %c\n\n  %i")))
-			(define-key global-map (kbd "C-c c") 'org-capture)
-			(global-set-key (kbd "C-c a") 'org-agenda)
-			(setq org-agenda-start-on-weekday nil)
-			(setq org-agenda-custom-commands
-			      '(("u" "Unscheduled TODO entries." 
-				 alltodo "" 
-				 ((org-agenda-skip-function '(org-agenda-skip-entry-if
-							      'scheduled
-							      'deadline))))))
-			(define-key global-map (kbd "C-c l") 'org-store-link)
-			(require 'org-drill)))
+		  (setq vince-org-directory (expand-file-name "~/crypt/org"))
+		  (setq org-todo-keywords
+			'((sequence "TODO(t!)" "WAIT(w@)" 
+				    "|" "DONE(d!)" "CANCELED(c@)")))
+		  (setq org-capture-templates
+			'(("t" "Enter a Todo Item")
+			  ("tp" "Plain todo item" entry
+			   (file+headline (concat vince-org-directory 
+						  "/gtd.org") "Tasks")
+			   "* TODO %?\n  + created :: %U")
+			  ("tl" "Todo item with a link to the current buffer" entry
+			   (file+headline (concat vince-org-directory 
+						  "/gtd.org") "Tasks")
+			   "* TODO %?\n  + created :: %U\n  + link :: %A")
+			  ("n" "Just a simple note")
+			  ("np" "Plain note." entry
+			   (file+headline (concat vince-org-directory 
+						  "/notes.org") "New")
+			   "* %?\n  + created :: %U")
+			  ("nl" "A note with a link." entry
+			   (file+headline (concat vince-org-directory
+						  "/notes.org") "New")
+			   "* %?\n  + created :: %U\n  + link :: %A")
+			  ("w" "" entry ;; 'w' for 'org-protocol'
+			   (file+headline (concat vince-org-directory 
+						  "/www.org") "Notes")
+			   "* %^{Title}\n\n  Source: %u, %c\n\n  %i")))
+		  (define-key global-map (kbd "C-c c") 'org-capture)
+		  (global-set-key (kbd "C-c a") 'org-agenda)
+		  (setq org-agenda-start-on-weekday nil)
+		  (setq org-agenda-custom-commands
+			'(("u" "Unscheduled TODO entries." alltodo "" 
+			   ((org-agenda-skip-function 
+			     '(org-agenda-skip-entry-if
+			       'scheduled
+			       'deadline))))))
+		  (define-key global-map (kbd "C-c l") 'org-store-link)
+		  (require 'org-drill)))
 	(:name org2blog
-	       :depends "xml-rpc-el"
-	       :after (progn
-			(setq org2blog/wp-blog-alist
-			      '(("vinceblog"
-				 :url "http://vincebox.webfactional.com/xmlrpc.php"
-				 :username "admin")))))
+	 :depends "xml-rpc-el"
+	 :after (progn
+		  (setq org2blog/wp-blog-alist
+			'(("vinceblog"
+			   :url "http://vincebox.webfactional.com/xmlrpc.php"
+			   :username "admin")))))
 	(:name cedet
-	       :type bzr
-	       :url
-	       "bzr://cedet.bzr.sourceforge.net/bzrroot/cedet/code/trunk"
-	       :build
-	       `(("sh" "-c" "touch `find . -name Makefile`")
-		 ("make" ,(format "EMACS=%s" (shell-quote-argument el-get-emacs)) "clean-all")
-		 ("make" ,(format "EMACS=%s" (shell-quote-argument el-get-emacs))))
-	       :features cedet-devel-load
-	       :after
-	       (progn 
-		 ;; Add further minor-modes to be enabled by semantic-mode.
-		 ;; See doc-string of `semantic-default-submodes' for other things
-		 ;; you can use here.
-		 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
-		 (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
-		 (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
+	 :type bzr
+	 :url "bzr://cedet.bzr.sourceforge.net/bzrroot/cedet/code/trunk"
+	 :build
+	 `(("sh" "-c" "touch `find . -name Makefile`")
+	   ("make" 
+	    ,(format "EMACS=%s" (shell-quote-argument el-get-emacs)) 
+	    "clean-all")
+	   ("make" 
+	    ,(format "EMACS=%s" (shell-quote-argument el-get-emacs))))
+	 :features cedet-devel-load
+	 :after
+	 (progn 
+	   (add-to-list 'semantic-default-submodes
+			'global-semantic-idle-summary-mode t)
+	   (add-to-list 'semantic-default-submodes
+			'global-semantic-idle-completions-mode t)
+	   (add-to-list 'semantic-default-submodes
+			'global-cedet-m3-minor-mode t)
 
-		 ;; Enable Semantic
-		 (semantic-mode 1)
+	   ;; Enable Semantic
+	   (semantic-mode 1)
 
-		 ;; Enable EDE (Project Management) features
-		 (global-ede-mode 1)
-		 ;; Originally on `RET' but redefined by autopair
-		 (global-set-key (kbd "M-RET") 'semantic-complete-inline-done)))
+	   ;; Enable EDE (Project Management) features
+	   (global-ede-mode 1)
+	   ;; Originally on `RET' but redefined by autopair
+	   (global-set-key (kbd "M-RET") 'semantic-complete-inline-done)))
 	(:name emms
-	       :after (progn
-			(emms-standard)
-			(emms-default-players)
-			(global-set-key (kbd "C-c m l") 'emms-playlist-mode-go)
-			(global-set-key (kbd "C-c m s") 'emms-pause)
-			(global-set-key (kbd "C-c m n") 'emms-next)
-			(global-set-key (kbd "C-c m p") 'emms-previous)
-			(define-key dired-mode-map
-			  (kbd "C-c m a") 'emms-add-dired)))))
+	 :after (progn
+		  (emms-standard)
+		  (emms-default-players)
+		  (global-set-key (kbd "C-c m l") 'emms-playlist-mode-go)
+		  (global-set-key (kbd "C-c m s") 'emms-pause)
+		  (global-set-key (kbd "C-c m n") 'emms-next)
+		  (global-set-key (kbd "C-c m p") 'emms-previous)
+		  (define-key dired-mode-map
+		    (kbd "C-c m a") 'emms-add-dired)))))
 
 (el-get)
 
@@ -258,11 +264,14 @@
   (save-excursion
     (outline-previous-heading)
     (let* ((re-todo (mapconcat 'identity org-todo-keywords-1 "\\|"))
-	   (start (re-search-forward (format "\\*+\\s +\\(%s\\)*\\s *" re-todo)))
+	   (start (re-search-forward 
+		   (format "\\*+\\s +\\(%s\\)*\\s *" re-todo)))
 	   (end (re-search-forward "\\s *\\($\\|–\\)"))
 	   (header (buffer-substring start end)))
       (replace-regexp-in-string "~–$" ""
-				(replace-regexp-in-string "\\s " "~" header)))))
+				(replace-regexp-in-string "\\s "
+							  "~" 
+							  header)))))
 
 (defun vince-org-get-this-paragraph-count ()
   (save-excursion
@@ -272,7 +281,8 @@
 
 (defun vince-paragraph-start-counter (beginning end)
   (interactive "r")
-  (let ((paragraph-starts (vince-count-paragraph-starts-region beginning end)))
+  (let ((paragraph-starts
+	 (vince-count-paragraph-starts-region beginning end)))
     (cond ((zerop paragraph-starts)
 	   (message "There are no starts."))
 	  ((= 1 paragraph-starts)

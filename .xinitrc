@@ -30,8 +30,6 @@ case "$(hostname)" in
 	xmodmap -e "keycode 166 = Super_R"
 	wicd-client -t&    
 	pidgin&
-	twinkle --hide &
-	transmission-gtk --minimized &
 	start_dropbox
 	urxvtd -q -o -f
 	;;

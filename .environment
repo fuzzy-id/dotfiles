@@ -17,3 +17,7 @@ fi
 if [[ -d "${HOME}/.cabal/bin" ]]; then
     export PATH="${HOME}/.cabal/bin:${PATH}"
 fi
+
+if [[ -d "/usr/lib/ccache" ]]; then
+    export PATH="/usr/lib/ccache:$PATH"
+fi

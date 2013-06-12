@@ -17,6 +17,8 @@
 ;; to avoid anoying popups when decrypting gpg
 (setenv "GPG_AGENT_INFO" nil)
 
+(add-to-list 'el-get-recipe-path "~/dotfiles/el-get-recipes/")
+
 (setq el-get-sources
       '((:name autopair
          :post-init (progn
@@ -160,6 +162,13 @@
 		    (kbd "C-c m a") 'emms-add-dired)))))
 
 (el-get)
+
+
+(autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
+(autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
+(autoload 'mercury-mode "prolog" "Major mode for editing Mercury programs." t)
+(setq prolog-system 'yap)
+(add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
 
 (defun vince-set-look-and-feel ()
   (scroll-bar-mode -1)

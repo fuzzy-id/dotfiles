@@ -1,0 +1,302 @@
+#  aptitude search '~i !~M !~E'
+i   acpi                            - displays information on ACPI devices      
+i   acpi-support-base               - scripts for handling base ACPI events such
+i   acpid                           - Advanced Configuration and Power Interface
+i   adduser                         - add and remove users and groups           
+i   alsa-utils                      - Utilities for configuring and using ALSA  
+i   anacron                         - cron-like program that doesn't go by time 
+i   ant                             - Java based build tool like make           
+i   apt-utils                       - package managment related utility programs
+i   aptitude                        - terminal-based package manager            
+i   aptitude-common                 - architecture indepedent files for the apti
+i   aspell-de                       - German dictionary for aspell              
+i   autoconf                        - automatic configure script builder        
+i   brhl2030lpr                     - Brother HL-2030 LPR driver                
+i   bsdmainutils                    - collection of more utilities from FreeBSD 
+i   busybox                         - Tiny utilities for small and embedded syst
+i   bzr                             - easy to use distributed version control sy
+i   ca-certificates                 - Common CA certificates                    
+i   ccache                          - Compiler cache for fast recompilation of C
+i   conkeror                        - keyboard focused web browser with Emacs lo
+i   conkeror-spawn-process-helper   - spawn external processes in Conkeror      
+i   console-setup                   - console font and keymap setup program     
+i   cpio                            - GNU cpio -- a program to manage archives o
+i   cpufrequtils                    - utilities to deal with the cpufreq Linux k
+i   cron                            - process scheduling daemon                 
+i   cryptsetup                      - disk encryption support - startup scripts 
+i   cups                            - Common UNIX Printing System(tm) - server  
+i   cups-client                     - Common UNIX Printing System(tm) - client p
+i   cups-filters                    - OpenPrinting CUPS Filters                 
+i   cupswrapperhl2030               - Brother HL2030 CUPS wrapper driver        
+i   curl                            - command line tool for transferring data wi
+i   cvs                             - Concurrent Versions System                
+i   debconf                         - Debian configuration management system    
+i   debconf-i18n                    - full internationalization support for debc
+i   debian-archive-keyring          - GnuPG archive keys of the Debian archive  
+i   dhcpcd                          - DHCP client for automatically configuring 
+i   discover                        - hardware identification system            
+i   dmidecode                       - SMBIOS/DMI table decoder                  
+i   dnsutils                        - Clients provided with BIND                
+i   dos2unix                        - convert text file line endings between CRL
+i   dosfstools                      - utilities for making and checking MS-DOS F
+i   dselect                         - Debian package management front-end       
+i   e2fslibs                        - ext2/ext3/ext4 file system libraries      
+i   eject                           - ejects CDs and operates CD-Changers under 
+i   emacs                           - GNU Emacs editor (metapackage)            
+i   emacs23-common-non-dfsg         - GNU Emacs shared, architecture independent
+i   emacs23-el                      - GNU Emacs LISP (.el) files                
+i   encfs                           - encrypted virtual filesystem              
+i   evince                          - Document (PostScript, PDF) viewer         
+i   feh                             - imlib2 based image viewer                 
+i   file                            - Determines file type using "magic" numbers
+i   firmware-ipw2x00                - Binary firmware for Intel Pro Wireless 210
+i   firmware-linux-nonfree          - Binary firmware for various drivers in the
+i   g++                             - GNU C++ compiler                          
+i   gcc-4.7-base                    - GCC, the GNU Compiler Collection (base pac
+i   gcc-doc                         - documentation for the GNU compilers (gcc, 
+i   gdb                             - The GNU Debugger                          
+i   git                             - fast, scalable, distributed revision contr
+i   git-annex                       - manage files with git, without checking th
+i   gmrun                           - Featureful CLI-like GTK+ application launc
+i   gnupg                           - GNU privacy guard - a free PGP replacement
+i   gnutls-bin                      - GNU TLS library - commandline utilities   
+i   gpgv                            - GNU privacy guard - signature verification
+i   gprolog                         - GNU Prolog compiler                       
+i   groff-base                      - GNU troff text-formatting system (base sys
+i   grub-common                     - GRand Unified Bootloader (common files)   
+i   grub-pc                         - GRand Unified Bootloader, version 2 (PC/BI
+i   gstreamer0.10-plugins-good      - GStreamer plugins from the "good" set     
+i   iceweasel                       - Web browser based on Firefox              
+i   ifupdown                        - high level tools to configure network inte
+i   imagemagick                     - image manipulation programs               
+i   info                            - Standalone GNU Info documentation browser 
+i   initramfs-tools                 - generic modular initramfs generator       
+i   initscripts                     - scripts for initializing and shutting down
+i   insserv                         - boot sequence organizer using LSB init.d s
+i   install-info                    - Manage installed documentation in info for
+i   installation-report             - system installation report                
+i   iproute                         - networking and traffic control tools      
+i   iptables                        - administration tools for packet filtering 
+i   iputils-ping                    - Tools to test the reachability of network 
+i   isc-dhcp-client                 - ISC DHCP client                           
+i   isc-dhcp-common                 - common files used by all the isc-dhcp* pac
+i   keyboard-configuration          - system-wide keyboard preferences          
+i   kmod                            - tools for managing Linux kernel modules   
+i   laptop-detect                   - attempt to detect a laptop                
+i   latex-beamer                    - LaTeX class to produce presentations      
+i   latexmk                         - Perl script for running LaTeX the correct 
+i   less                            - pager program similar to more             
+i   libacl1                         - Access control list shared library        
+i   libapt-inst1.5                  - deb package format runtime library        
+i   libapt-pkg4.12                  - package managment runtime library         
+i   libatlas-dev                    - Automatically Tuned Linear Algebra Softwar
+i   libatlas3-base                  - Automatically Tuned Linear Algebra Softwar
+i   libattr1                        - Extended attribute shared library         
+i   libblas3                        - Basic Linear Algebra Reference implementat
+i   libblkid1                       - block device id library                   
+i   libboost-iostreams1.49.0        - Boost.Iostreams Library                   
+i   libbz2-1.0                      - high-quality block-sorting file compressor
+i   libc-dev-bin                    - Embedded GNU C Library: Development binari
+i   libc6                           - Embedded GNU C Library: Shared libraries  
+i   libc6-i686                      - Embedded GNU C Library: Shared libraries [
+i   libcairo2                       - The Cairo 2D vector graphics library      
+i   libcap2-bin                     - basic utility programs for using capabilit
+i   libcolord1                      - system service to manage device colour pro
+i   libcomerr2                      - common error description library          
+i   libcurl3-gnutls                 - easy-to-use client-side URL transfer libra
+i   libcwidget3                     - high-level terminal interface library for 
+i   libdb5.1                        - Berkeley v5.1 Database Libraries [runtime]
+i   libdbus-1-3                     - simple interprocess messaging system (libr
+i   libenchant1c2a                  - Wrapper library for various spell checker 
+i   libept1.4.12                    - High-level library for managing Debian pac
+i   libgcc1                         - GCC support library                       
+i   libgcrypt11                     - LGPL Crypto library - runtime library     
+i   libgdbm3                        - GNU dbm database routines (runtime version
+i   libgeoip1                       - non-DNS IP-to-country resolver library    
+i   libghc-xmonad-contrib-dev       - Extensions to xmonad                      
+i   libgl1-mesa-dri                 - free implementation of the OpenGL API -- D
+i   libgl1-mesa-glx                 - free implementation of the OpenGL API -- G
+i   libglib2.0-0                    - GLib library of C routines                
+i   libgmp-dev                      - Multiprecision arithmetic library develope
+i   libgnutls26                     - GNU TLS library - runtime library         
+i   libgpg-error0                   - library for common error values and messag
+i   libgs9-common                   - interpreter for the PostScript language an
+i   libgtk2.0-0                     - GTK+ graphical user interface library     
+i   libgtk2.0-dev                   - development files for the GTK+ library    
+i   libhunspell-1.3-0               - spell checker and morphological analyzer (
+i   libidn11                        - GNU Libidn library, implementation of IETF
+i   libjbig0                        - JBIGkit libraries                         
+i   libjs-jquery                    - JavaScript library for dynamic web applica
+i   libjs-underscore                - JavaScript's functional programming helper
+i   libkmod2                        - libkmod shared library                    
+i   libkrb5-3                       - MIT Kerberos runtime libraries            
+i   liblapack3                      - Library of linear algebra routines 3 - sha
+i   liblinear1                      - Library for Large Linear Classification   
+i   liblocale-gettext-perl          - module using libc functions for internatio
+i   liblzma5                        - XZ-format compression library             
+i   libminiupnpc5                   - UPnP IGD client lightweight library       
+i   libmount1                       - block device id library                   
+i   libmysql++-dev                  - MySQL C++ library bindings (development)  
+i   libncurses5                     - shared libraries for terminal handling    
+i   libncursesw5                    - shared libraries for terminal handling (wi
+i   libnewt0.52                     - Not Erik's Windowing Toolkit - text mode w
+i   libnfnetlink0                   - Netfilter netlink library                 
+i   libnotify4                      - sends desktop notifications to a notificat
+i   libopenal1                      - Software implementation of the OpenAL API 
+i   libp11-kit0                     - Library for loading and coordinating acces
+i   libpam-modules                  - Pluggable Authentication Modules for PAM  
+i   libpam-modules-bin              - Pluggable Authentication Modules for PAM -
+i   libpam-runtime                  - Runtime support for the PAM library       
+i   libpam0g                        - Pluggable Authentication Modules library  
+i   libpango1.0-dev                 - Development files for the Pango           
+i   libpipeline1                    - pipeline manipulation library             
+i   libpng12-dev                    - PNG library - development                 
+i   libpopt0                        - lib for parsing cmdline parameters        
+i   libprocps0                      - library for accessing process information 
+i   libpurple0                      - multi-protocol instant messaging library  
+i   libreadline6                    - GNU readline and history libraries, run-ti
+i   libsasl2-2                      - Cyrus SASL - authentication abstraction li
+i   libselinux1                     - SELinux runtime shared libraries          
+i   libsemanage-common              - Common files for SELinux policy management
+i   libsemanage1                    - SELinux policy management library         
+i   libsepol1                       - SELinux library for manipulating binary se
+i   libsigc++-2.0-0c2a              - type-safe Signal Framework for C++ - runti
+i   libslang2                       - S-Lang programming library - runtime versi
+i   libsqlite3-0                    - SQLite 3 shared library                   
+i   libsqlite3-dev                  - SQLite 3 development files                
+i   libss2                          - command-line interface parsing library    
+i   libssl-dev                      - SSL development libraries, header files an
+i   libssl1.0.0                     - SSL shared libraries                      
+i   libstdc++6                      - GNU Standard C++ Library v3               
+i   libtasn1-3                      - Manage ASN.1 structures (runtime)         
+i   libtext-charwidth-perl          - get display widths of characters on the te
+i   libtext-iconv-perl              - converts between character sets in Perl   
+i   libtext-wrapi18n-perl           - internationalized substitute of Text::Wrap
+i   libtinfo5                       - shared low-level terminfo library for term
+i   libudev0                        - libudev shared library                    
+i   libusb-0.1-4                    - userspace USB programming library         
+i   libustr-1.0-1                   - Micro string library: shared library      
+i   libuuid1                        - Universally Unique ID library             
+i   libvisual-0.4-0                 - Audio visualization framework             
+i   libwildmidi-config              - software MIDI player configuration        
+i   libwrap0                        - Wietse Venema's TCP wrappers library      
+i   libx11-dev                      - X11 client-side library (development heade
+i   libxapian22                     - Search engine library                     
+i   libxml2                         - GNOME XML library                         
+i   linux-image-686-pae             - Linux for modern PCs (meta-package)       
+i   lm-sensors                      - utilities to read temperature/voltage/fan 
+i   locales                         - Embedded GNU C Library: National Language 
+i   logrotate                       - Log rotation utility                      
+i   lsb-base                        - Linux Standard Base 4.1 init script functi
+i   lsof                            - Utility to list open files                
+i   luatex                          - next generation TeX engine                
+i   lvm2                            - Linux Logical Volume Manager              
+i   make                            - An utility for Directing compilation.     
+i   man-db                          - on-line manual pager                      
+i   manpages                        - Manual pages about using a GNU/Linux syste
+i   mawk                            - a pattern scanning and text processing lan
+i   memtest86+                      - thorough real-mode memory tester          
+i   mesa-utils                      - Miscellaneous Mesa GL utilities           
+i   mime-support                    - MIME files 'mime.types' & 'mailcap', and s
+i   mlocate                         - quickly find files on the filesystem based
+i   mpg321                          - Simple and lightweight command line MP3 pl
+i   multiarch-support               - Transitional package to ensure multiarch c
+i   mutt                            - text-based mailreader supporting MIME, GPG
+i   nano                            - small, friendly text editor inspired by Pi
+i   net-tools                       - The NET-3 networking toolkit              
+i   netbase                         - Basic TCP/IP networking system            
+i   netcat-traditional              - TCP/IP swiss army knife                   
+i   nmap                            - The Network Mapper                        
+i   openjdk-6-jre-headless          - OpenJDK Java runtime, using Hotspot JIT (h
+i   openssh-client                  - secure shell (SSH) client, for secure acce
+i   openssh-server                  - secure shell (SSH) server, for secure acce
+i   p7zip                           - 7z file archiver with high compression rat
+i   p7zip-full                      - 7z and 7za file archivers with high compre
+i   passwd                          - change and administer password and group d
+i   pciutils                        - Linux PCI Utilities                       
+i   pcmciautils                     - PCMCIA utilities for Linux 2.6            
+i   pidgin                          - graphical multi-protocol instant messaging
+i   pmtools                         - Perl module tools                         
+i   procps                          - /proc file system utilities               
+i   python-bzrlib                   - distributed version control system - pytho
+i   python-dev                      - header files and a static library for Pyth
+i   python-matplotlib               - Python based plotting system in a style si
+i   python-matplotlib-doc           - Python based plotting system (documentatio
+i   python-numpy-doc                - NumPy documentation                       
+i   python-paramiko                 - Make ssh v2 connections with Python       
+i   python-tk                       - Tkinter - Writing Tk applications with Pyt
+i   python-virtualenv               - Python virtual environment creator        
+i   python2.6                       - Interactive high-level object-oriented lan
+i   python2.6-dev                   - Header files and a static library for Pyth
+i   python2.6-doc                   - Documentation for the high-level object-or
+i   python2.7-doc                   - Documentation for the high-level object-or
+i   python3                         - interactive high-level object-oriented lan
+i   python3-dev                     - header files and a static library for Pyth
+i   python3-doc                     - documentation for the high-level object-or
+i   python3.2-doc                   - Documentation for the high-level object-or
+i   radeontool                      - utility to control ATI Radeon backlight fu
+i   rdesktop                        - RDP client for Windows NT/2000 Terminal Se
+i   readahead-fedora                - Fedora's implementation of readahead to pr
+i   readline-common                 - GNU readline and history libraries, common
+i   resolvconf                      - name server information handler           
+i   rsyslog                         - reliable system and kernel logging daemon 
+i   rxvt-unicode                    - RXVT-like terminal emulator with Unicode s
+i   sensible-utils                  - Utilities for sensible alternative selecti
+i   smartmontools                   - control and monitor storage systems using 
+i   sshfs                           - filesystem client based on SSH File Transf
+i   strace                          - A system call tracer                      
+i   subversion                      - Advanced version control system           
+i   sudo                            - Provide limited super user privileges to s
+i   swi-prolog-doc                  - Documentation for SWI-Prolog interpreter a
+i   swi-prolog-nox                  - ISO/Edinburgh-style Prolog interpreter (wi
+i   sysv-rc                         - System-V-like runlevel change mechanism   
+i   texinfo                         - Documentation system for on-line informati
+i   texlive                         - TeX Live: A decent selection of the TeX Li
+i   texlive-base                    - TeX Live: Essential programs and files    
+i   texlive-binaries                - Binaries for TeX Live                     
+i   texlive-fonts-recommended       - TeX Live: Recommended fonts               
+i   texlive-latex-base              - TeX Live: Basic LaTeX packages            
+i   texlive-latex-extra             - TeX Live: LaTeX supplementary packages    
+i   texlive-latex-recommended       - TeX Live: LaTeX recommended packages      
+i   texlive-pictures                - TeX Live: Graphics packages and programs  
+i   texlive-science                 - TeX Live: Typesetting for natural and comp
+i   texlive-science-doc             - TeX Live: Documentation files for texlive-
+i   tk-dev                          - The Tk toolkit for Tcl and X11 (default ve
+i   traceroute                      - Traces the route taken by packets over an 
+i   transmission                    - lightweight BitTorrent client             
+i   trayer                          - Lightweight GTK2-based systray for UNIX de
+i   tzdata                          - time zone and daylight-saving time data   
+i   udev                            - /dev/ and hotplug management daemon       
+i   ufsutils                        - UFS filesystems utilities                 
+i   unzip                           - De-archiver for .zip files                
+i   usbutils                        - Linux USB utilities                       
+i   vim-common                      - Vi IMproved - Common files                
+i   vim-nox                         - Vi IMproved - enhanced vi editor - with sc
+i   vim-tiny                        - Vi IMproved - enhanced vi editor - compact
+i   virtualenvwrapper               - extension to virtualenv for managing multi
+i   vlc                             - multimedia player and streamer            
+i   vorbis-tools                    - several Ogg Vorbis tools                  
+i   wget                            - retrieves files from the web              
+i   whiptail                        - Displays user-friendly dialog boxes from s
+i   wicd                            - wired and wireless network manager - metap
+i   wicd-daemon                     - wired and wireless network manager - daemo
+i   wicd-gtk                        - wired and wireless network manager - GTK+ 
+i   wireshark                       - network traffic analyzer - GTK+ version   
+i   wodim                           - command line CD/DVD writing tool          
+i   x11-xserver-utils               - X server utilities                        
+i   xdg-utils                       - desktop integration utilities from freedes
+i   xinit                           - X server initialisation tool              
+i   xmobar                          - Lightweight status bar for X11 window mana
+i   xmonad                          - Lightweight X11 window manager written in 
+i   xournal                         - GTK+ Application for note taking          
+i   xserver-common                  - common files used by various X servers    
+i   xserver-xorg                    - X.Org X server                            
+i   xserver-xorg-core               - Xorg X server - core server               
+i   xserver-xorg-input-synaptics    - Synaptics TouchPad driver for X.Org server
+i   xserver-xorg-video-ati          - X.Org X server -- AMD/ATI display driver w
+i   xserver-xorg-video-radeon       - X.Org X server -- AMD/ATI Radeon display d
+i   xz-utils                        - XZ-format compression utilities           
+i   yap                             - High-performance Prolog System            
+i   zenmap                          - The Network Mapper Front End              
+i   zlib1g                          - compression library - runtime             
+i   zsh                             - shell with lots of features               

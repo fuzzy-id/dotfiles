@@ -2,6 +2,8 @@
 # In this file we define all kinds of environment variables
 # that are independent of our shell.
 
+export PIP_DOWNLOAD_CACHE="${HOME}/.pip/dl_cache"
+
 export BIBINPUTS="${HOME}/privatsache/bibtex"
 
 export EDITOR="emacsclient -c"

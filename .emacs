@@ -167,7 +167,7 @@
 (autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
 (autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
 (autoload 'mercury-mode "prolog" "Major mode for editing Mercury programs." t)
-(setq prolog-system 'yap)
+(setq prolog-system 'swi)
 (add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
 
 (defun vince-set-look-and-feel ()

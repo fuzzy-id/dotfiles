@@ -1,16 +1,18 @@
 # ~/.xinitrc
 # This trayer is for xmonad + xmobar and holds things as transmission, wicd, etc.
-trayer --edge top \
-	--align right \
-	--SetDockType true \
-	--SetPartialStrut false \
-	--expand false \
-	--widthtype pixel \
-	--width 120 \
-	--heighttype pixel \
-	--height 13 \
-	--transparent true \
-	--tint 0x191970 &
+trayer \
+    --edge top \
+    --align right \
+    --SetDockType true \
+    --SetPartialStrut false \
+    --expand false \
+    --widthtype pixel \
+    --width 120 \
+    --heighttype pixel \
+    --height 13 \
+    --transparent true \
+    --tint 0x191970 \
+    --monitor primary &
 
 # set neo layout as default (to switch use aliases defined in .zshrc)
 setxkbmap lv

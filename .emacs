@@ -27,10 +27,11 @@
 	 :post-init (progn
 		      (setq-default TeX-master nil)))
 	(:name color-theme-zenburn
-	 :after (load-theme 'zenburn))
+	       :after (progn
+			(load-theme 'zenburn)))
 	(:name org-mode
 	 :after (progn
-		  (require 'org-exp-bibtex)
+		  ; (require 'org-exp-bibtex)
 		  (setq org-latex-to-pdf-process
 			'("cd %o && latexmk -pdf %f"))
 		  (require 'org-latex)
@@ -65,10 +66,10 @@
 			 '("\\paragraph{%s}" . "\\paragraph*{%s}")
 			 '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 		  (setq org-export-latex-default-class "scrartcl")
-		  (add-to-list 'org-export-latex-packages-alist
-			       '("" "centernot" t))
-		  (add-to-list 'org-export-latex-packages-alist
-			       '("" "minted"))
+		  ;; (add-to-list 'org-export-latex-packages-alist
+		  ;; 	       '("" "centernot" t))
+		  ;; (add-to-list 'org-export-latex-packages-alist
+		  ;; 	       '("" "minted"))
 		  (setq org-export-latex-listings 'minted)
 		  (setq org-export-latex-minted-options
 			'(("frame" "none")

@@ -14,6 +14,10 @@ require("clicks-in-new-buffer.js");
 
 define_webjump("youtube", 
 	       "http://www.youtube.com/results?search_query=%s&search=Search");
+define_webjump("emacswiki",
+    "http://www.google.com/cse?cx=004774160799092323420%3A6-ff2s0o6yi"+
+        "&q=%s&sa=Search&siteurl=emacswiki.org%2F",
+    $alternative="http://www.emacswiki.org/");
 define_webjump("leoen",
 	       "http://pda.leo.org/?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&relink=on&sectHdr=off&spellToler=std&search=%s");
 define_webjump("leoes",

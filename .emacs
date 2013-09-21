@@ -37,7 +37,8 @@
 		  (add-to-list 
 		   'org-export-latex-classes
 		   (list "scrartcl" 
-			 (concat "\\documentclass[11pt]{scrartcl}\n")
+			 (concat "\\documentclass[11pt]{scrartcl}\n"
+				 "\\usepackage{amsmath}\n")
 			 '("\\section{%s}" . "\\section*{%s}")
 			 '("\\subsection{%s}" . "\\subsection*{%s}")
 			 '("\\subsubsection{%s}" . "\\subsubsection*{%s}")

@@ -1,0 +1,19 @@
+Config { font = "xft:DejaVu Sans Mono:antialias=true:pixelsize=10"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = TopW L 85
+       , lowerOnStart = True
+       , commands = [ Run MultiCpu ["-t","Cpu: <total0>% <total1>%","-L","3","-H","50","--normal","green","--high","red"] 10
+       	 	    , Run CpuFreq ["-t", "<cpu0> <cpu1>"] 10
+		    , Run CoreTemp ["-t","Cores: <core0> <core1>"] 10
+                    , Run Memory ["-t","Mem: <usedratio>% (<cache>M)"] 10
+                    , Run Date "%a %b %_d %H:%M:%S" "date" 10
+		    , Run ThermalZone 0 [] 10
+		    , Run ThermalZone 1 [] 10
+                    , Run StdinReader
+		    , Run BatteryP ["BAT0"] [] 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %multicpu% %cpufreq% | %memory% | %thermal0%  %thermal1% %coretemp% | %battery% * <fc=#ee9a00>%date%</fc>"
+       }

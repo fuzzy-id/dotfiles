@@ -34,9 +34,9 @@
 		  ; (require 'org-exp-bibtex)
 		  (setq org-latex-to-pdf-process
 			'("cd %o && latexmk -pdf %f"))
-		  (require 'org-latex)
+		  (require 'ox-latex)
 		  (add-to-list 
-		   'org-export-latex-classes
+		   'org-latex-classes
 		   (list "scrartcl" 
 			 (concat "\\documentclass[11pt]{scrartcl}\n"
 				 "\\usepackage{amsmath}\n")
@@ -46,7 +46,7 @@
 			 '("\\paragraph{%s}" . "\\paragraph*{%s}")
 			 '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 		  (add-to-list
-		   'org-export-latex-classes
+		   'org-latex-classes
 		   (list "acmtog"
 			 (concat "\\documentclass{acmtog}\n"
 				 "\\usepackage{amsmath}\n")
@@ -56,7 +56,7 @@
 			 '("\\paragraph{%s}" . "\\paragraph*{%s}")
 			 '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 		  (add-to-list
-		   'org-export-latex-classes
+		   'org-latex-classes
 		   (list "scrreprt"
 			 (concat "\\documentclass{scrreprt}\n"
 				 "\\usepackage{amsmath}\n")
@@ -66,13 +66,13 @@
 			 '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
 			 '("\\paragraph{%s}" . "\\paragraph*{%s}")
 			 '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-		  (setq org-export-latex-default-class "scrartcl")
+		  (setq org-latex-default-class "scrartcl")
 		  ;; (add-to-list 'org-export-latex-packages-alist
 		  ;; 	       '("" "centernot" t))
 		  ;; (add-to-list 'org-export-latex-packages-alist
 		  ;; 	       '("" "minted"))
-		  (setq org-export-latex-listings 'minted)
-		  (setq org-export-latex-minted-options
+		  (setq org-latex-listings 'minted)
+		  (setq org-latex-minted-options
 			'(("frame" "none")
 			  ("fontsize" "\\footnotesize")
 			  ("linenos" "false")))

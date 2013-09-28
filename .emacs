@@ -26,9 +26,9 @@
 	(:name auctex
 	 :post-init (progn
 		      (setq-default TeX-master nil)))
-	(:name color-theme-zenburn
+	(:name zenburn-theme
 	       :after (progn
-			(load-theme 'zenburn)))
+			(load-theme 'zenburn t)))
 	(:name org-mode
 	 :after (progn
 		  ; (require 'org-exp-bibtex)

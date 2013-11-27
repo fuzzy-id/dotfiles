@@ -26,9 +26,6 @@
 	(:name auctex
 	 :post-init (progn
 		      (setq-default TeX-master nil)))
-	(:name zenburn-theme
-	       :after (progn
-			(load-theme 'zenburn t)))
 	(:name org-mode
 	 :after (progn
 		  ; (require 'org-exp-bibtex)
@@ -81,11 +78,21 @@
 			       '("\\.pdf\\(\\.gz\\)\\'" . "evince %s"))
 
 		  (setq vince-org-directory (expand-file-name "~/crypt/org"))
+		  (setq vince-work-directory (expand-file-name "~/Dropbox/work"))
 		  (setq org-todo-keywords
 			'((sequence "TODO(t!)" "WAIT(w@)" 
 				    "|" "DONE(d!)" "CANCELED(c@)")))
 		  (setq org-capture-templates
-			'(("t" "Enter a Todo Item")
+			'(("w" "Enter a Todo item on work")
+			  ("wp" "Plain todo item" entry
+			   (file+headline (concat vince-work-directory 
+						  "/todo.org") "Tasks")
+			   "* TODO %?\n  + created :: %U")
+			  ("wl" "Todo item with a link to the current buffer" entry
+			   (file+headline (concat vince-org-directory 
+						  "/todo.org") "Tasks")
+			   "* TODO %?\n  + created :: %U\n  + link :: %A")
+			  ("t" "Enter a Todo Item")
 			  ("tp" "Plain todo item" entry
 			   (file+headline (concat vince-org-directory 
 						  "/gtd.org") "Tasks")

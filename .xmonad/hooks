@@ -1,0 +1,36 @@
+#!/bin/sh
+
+trayer \
+    --edge top \
+    --align right \
+    --SetDockType true \
+    --SetPartialStrut false \
+    --expand false \
+    --widthtype pixel \
+    --width 120 \
+    --heighttype pixel \
+    --height 15 \
+    --transparent true \
+    --tint 0x191970 \
+    --monitor primary &
+
+# set neo layout as default (to switch use aliases defined in .zshrc)
+xmodmap "${HOME}/dotfiles/neo_de.xmodmap"
+xmodmap "${HOME}/dotfiles/swap_ctrl_altgr.xmodmap"
+
+start_dropbox() {
+    local dropboxd="$(which dropbox)"
+    if test -e "${dropboxd}"; then
+	dropboxd="${HOME}/.dropbox-dist/dropboxd"
+    fi
+    if test -e "${dropboxd}"; then
+	${dropboxd} start&
+    fi
+}
+
+#pidgin&
+nm-applet&
+start_dropbox
+urxvtd -q -o -f
+
+xset b off

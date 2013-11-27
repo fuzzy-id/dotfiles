@@ -1,5 +1,8 @@
 # ignore emacs backup files
 *~
 
+# Python related
 # ignore rope folders
 .ropeproject/
+__pycache__/
+*.egg-info/

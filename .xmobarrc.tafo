@@ -11,7 +11,7 @@ Config { font = "xft:DejaVu Sans Mono:antialias=true:pixelsize=10"
 		    , Run ThermalZone 0 [] 10
 		    , Run ThermalZone 1 [] 10
                     , Run StdinReader
-		    , Run BatteryP ["BAT0"] [] 10
+		    , Run BatteryP ["BAT1"] [] 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"

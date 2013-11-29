@@ -26,6 +26,8 @@
 	(:name auctex
 	 :post-init (progn
 		      (setq-default TeX-master nil)))
+	(:name zenburn-theme
+	 :after (load-theme 'zenburn t))
 	(:name org-mode
 	 :after (progn
 		  ; (require 'org-exp-bibtex)
@@ -78,7 +80,7 @@
 			       '("\\.pdf\\(\\.gz\\)\\'" . "evince %s"))
 
 		  (setq vince-org-directory (expand-file-name "~/crypt/org"))
-		  (setq vince-work-directory (expand-file-name "~/Dropbox/work"))
+		  (setq vince-work-directory (expand-file-name "~/crypt/ilexius"))
 		  (setq org-todo-keywords
 			'((sequence "TODO(t!)" "WAIT(w@)" 
 				    "|" "DONE(d!)" "CANCELED(c@)")))

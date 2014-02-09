@@ -33,12 +33,27 @@
 		  ; (require 'org-exp-bibtex)
 		  (setq org-latex-to-pdf-process
 			'("cd %o && latexmk -pdf %f"))
+		  ;; on newer Org versions:
+		  (setq org-latex-pdf-process
+			'("cd %o && latexmk -pdf %f"))
+		  (setq org-latex-remove-logfiles nil)
 		  (require 'ox-latex)
+		  (require 'ox-bibtex)
 		  (add-to-list 
 		   'org-latex-classes
 		   (list "scrartcl" 
 			 (concat "\\documentclass[11pt]{scrartcl}\n"
 				 "\\usepackage{amsmath}\n")
+			 '("\\section{%s}" . "\\section*{%s}")
+			 '("\\subsection{%s}" . "\\subsection*{%s}")
+			 '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+			 '("\\paragraph{%s}" . "\\paragraph*{%s}")
+			 '("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+		  (add-to-list
+		   'org-latex-classes
+		   (list "scrartcl-empty"
+			 (concat "\\documentclass{scrartcl}\n"
+				 "[NO-DEFAULT-PACKAGES]")
 			 '("\\section{%s}" . "\\section*{%s}")
 			 '("\\subsection{%s}" . "\\subsection*{%s}")
 			 '("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -82,7 +97,7 @@
 		  (setq vince-org-directory (expand-file-name "~/crypt/org"))
 		  (setq vince-work-directory (expand-file-name "~/crypt/ilexius"))
 		  (setq org-todo-keywords
-			'((sequence "TODO(t!)" "WAIT(w@)" 
+			'((sequence "TODO(t!)" "WAIT(w@)" "CHECK(!)"
 				    "|" "DONE(d!)" "CANCELED(c@)")))
 		  (setq org-capture-templates
 			'(("w" "Enter a Todo item on work")
@@ -127,13 +142,6 @@
 			       'deadline))))))
 		  (define-key global-map (kbd "C-c l") 'org-store-link)
 		  (require 'org-drill)))
-	(:name org2blog
-	 :depends "xml-rpc-el"
-	 :after (progn
-		  (setq org2blog/wp-blog-alist
-			'(("vinceblog"
-			   :url "http://vincebox.webfactional.com/xmlrpc.php"
-			   :username "admin")))))
 	(:name cedet
 	 :type bzr
 	 :url "bzr://cedet.bzr.sourceforge.net/bzrroot/cedet/code/trunk"
@@ -276,7 +284,7 @@
   (interactive)
   (let* ((heading (vince-org-get-previous-heading))
 	 (paragraph (vince-org-get-this-paragraph-count))
-	 (cite (format "%s, §%d" heading paragraph)))
+	 (cite (format "%s,~§%d" heading paragraph)))
     (kill-new cite)
     (message (format "Pushed '%s' to kill ring." cite))))
 

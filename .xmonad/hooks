@@ -4,7 +4,7 @@ trayer \
     --edge top \
     --align right \
     --SetDockType true \
-    --SetPartialStrut false \
+    --SetPartialStrut true \
     --expand false \
     --widthtype pixel \
     --width 120 \
@@ -15,22 +15,25 @@ trayer \
     --monitor primary &
 
 # set neo layout as default (to switch use aliases defined in .zshrc)
+setxkbmap de
 xmodmap "${HOME}/dotfiles/neo_de.xmodmap"
 xmodmap "${HOME}/dotfiles/swap_ctrl_altgr.xmodmap"
 
 start_dropbox() {
     local dropboxd="$(which dropbox)"
-    if test -e "${dropboxd}"; then
-	dropboxd="${HOME}/.dropbox-dist/dropboxd"
-    fi
+    test -e "${dropboxd}" || dropboxd="${HOME}/.dropbox-dist/dropboxd"
     if test -e "${dropboxd}"; then
 	${dropboxd} start&
     fi
 }
 
 #pidgin&
-nm-applet&
 start_dropbox
 urxvtd -q -o -f
+# I don't need NM on my tower…
+if [[ $(hostname) != "taris" ]]; then
+    ck-launch-session nm-applet&
+fi
+gtk-redshift&
 
 xset b off

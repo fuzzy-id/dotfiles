@@ -21,8 +21,10 @@
 
 (setq el-get-sources
       '((:name autopair
-         :post-init (progn
-		      (autopair-global-mode t)))
+         :after (progn
+		  (autopair-global-mode t)
+		  (add-hook 'LaTeX-mode-hook 'reftex-mode)
+		  (put 'narrow-to-region 'disabled nil)))
 	(:name auctex
 	 :post-init (progn
 		      (setq-default TeX-master nil)))

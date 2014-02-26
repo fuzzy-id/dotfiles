@@ -4,14 +4,14 @@ Config { font = "xft:DejaVu Sans Mono:antialias=true:pixelsize=10"
        , position = TopW L 85
        , lowerOnStart = True
        , commands = [ Run MultiCpu ["-t","Cpu: <total0>% <total1>%","-L","3","-H","50","--normal","green","--high","red"] 10
-       	 	    , Run CpuFreq ["-t", "<cpu0> <cpu1>"] 10
-		    , Run CoreTemp ["-t","Cores: <core0> <core1>"] 10
-                    , Run Memory ["-t","Mem: <usedratio>% (<cache>M)"] 10
-                    , Run Date "%a %b %_d %H:%M:%S" "date" 10
-		    , Run ThermalZone 0 [] 10
-		    , Run ThermalZone 1 [] 10
+                    , Run CpuFreq ["-t", "<cpu0> <cpu1>"] 100
+                    , Run CoreTemp ["-t","Cores: <core0> <core1>"] 100
+                    , Run Memory ["-t","Mem: <usedratio>% (<cache>M)"] 100
+                    , Run Date "%a %b %_d %H:%M" "date" 600
+                    , Run ThermalZone 0 [] 300
+                    , Run ThermalZone 1 [] 300
                     , Run StdinReader
-		    , Run BatteryP ["BAT1"] [] 10
+                    , Run BatteryP ["BAT1"] ["-l", "red"] 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"

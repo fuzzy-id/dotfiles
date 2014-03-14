@@ -93,8 +93,8 @@
 			  ("fontsize" "\\footnotesize")
 			  ("linenos" "false")))
 		  (setq org-export-pdf-remove-logfiles 'nil)
-		  (add-to-list 'org-file-apps 
-			       '("\\.pdf\\(\\.gz\\)\\'" . "evince %s"))
+		  ;;(add-to-list 'org-file-apps 
+		  ;;	       '("\\.pdf\\(\\.gz\\)\\'" . "evince %s"))
 
 		  (setq vince-org-directory (expand-file-name "~/crypt/org"))
 		  (setq vince-work-directory (expand-file-name "~/crypt/ilexius"))

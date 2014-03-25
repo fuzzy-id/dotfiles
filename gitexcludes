@@ -1,5 +1,7 @@
 # ignore emacs backup files
 *~
+\#*#
+.#*
 
 # Python related
 # ignore rope folders

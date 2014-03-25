@@ -1,0 +1,9 @@
+# -*- mode: conf -*-
+#
+# ~/.mailcap
+#
+# Own mailcap configuration. Motivation is to open up LaTeX PDF exports
+# in evince and not in evince-previewer
+#
+
+application/pdf; evince %s; test=test -n "$DISPLAY"

@@ -216,6 +216,9 @@
 
 (vince-set-look-and-feel)
 
+(require 'midnight)
+(setq clean-buffer-list-delay-general .5)
+(run-at-time nil (* 60 60) 'clean-buffer-list)
 
 (setq erc-nick "fuzzy_id")
 (setq erc-autojoin-channels-alist '(("freenode.net" "#pyramid")))

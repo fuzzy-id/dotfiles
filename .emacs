@@ -245,11 +245,6 @@
 (add-to-list 'auto-mode-alist '("/tmp/mutt-.*" . mail-mode))
 (add-hook 'mail-mode-hook 'turn-on-auto-fill)
 
-(defun vince-p-imap-process (process)
-  "Returns `t' if `process' is an imap-process."
-  (and (processp process)
-       (string-match-p "^imap.*$" (process-name process))))
-
 (defun vince-search-imap-processes-in-list (processes)
   "Searches for imap processes in the given list."
   (if processes

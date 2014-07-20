@@ -57,17 +57,19 @@ main = do setNeoLayout
           spawn "xset b off"
           pidPath <- (</> ".xmonad" </> "run") <$> getHomeDirectory
           db <- dropboxExec
-          mapM_ startProgWPidFile (map (setPidFile pidPath) [trayer, urxvtd, redshift, db])
+          mapM_ runPidProg (map (setPidFile pidPath) [trayer, urxvtd, redshift, db])
           xmonad =<< xmobar myConfig
-  where setPidFile path prog = prog {pidFile = path </> (name prog) <.> "pid"}
+
+setPidFile :: FilePath -> PidProg -> PidProg   
+setPidFile path prog = prog {pidFile = path </> (name prog) <.> "pid"}
 
 dropboxExec :: MonadIO m => m PidProg
 dropboxExec = liftM 
                 (dropbox . (</> ".dropbox-dist" </> "dropboxd")) 
                 (io getHomeDirectory)
 
-startProgWPidFile :: PidProg -> IO ()
-startProgWPidFile prog = do
+runPidProg :: PidProg -> IO ()
+runPidProg prog = do
   createDirectoryIfMissing True (takeDirectory . pidFile $ prog)
   pidFileExists <- (doesFileExist . pidFile) prog
   if not pidFileExists

@@ -1,5 +1,6 @@
 module Main where
 
+import Codec.Binary.UTF8.String
 import Control.Applicative
 import Control.Exception
 import Control.Monad
@@ -13,76 +14,87 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.Script (execScriptHook)
 
-setNeoLayout :: IO ()
+setNeoLayout :: MonadIO m => m ()
 setNeoLayout = do spawn "setxkbmap de"
-                  dotfiles <- (</> "dotfiles") <$> getHomeDirectory
+                  dotfiles <- liftM (</> "dotfiles") (io getHomeDirectory)
                   spawn ("xmodmap " ++ dotfiles </> "neo_de.xmodmap")
                   spawn ("xmodmap " ++ dotfiles </> "swap_ctrl_altgr.xmodmap")
 
-data PidProg = PidProg { name :: String
-                       , command :: String
+data PidProg = PidProg { command :: String
+                       , args :: [String]
                        , respawn :: Bool
+                       , pidFile :: String
                        }
 
+name :: PidProg -> String
+name p = (takeFileName . command) p
+
 trayer :: PidProg
-trayer = PidProg { name = "trayer"
-                 , command = intercalate " " ["trayer"
-                                             , "--edge top"
-                                             , "--align right"
-                                             , "--SetDockType true"
-                                             , "--SetPartialStrut true"
-                                             , "--expand false"
-                                             , "--widthtype pixel"
-                                             , "--width 120"
-                                             , "--heighttype pixel"
-                                             , "--height 15"
-                                             , "--transparent true"
-                                             , "--tint 0x191970"
-                                             , "--monitor primary"
-                                             ]
+trayer = PidProg { command = "trayer"
+                 , args = [ "--edge", "top"
+                          , "--align", "right"
+                          , "--SetDockType", "true"
+                          , "--SetPartialStrut", "true"
+                          , "--expand", "false"
+                          , "--widthtype", "pixel"
+                          , "--width", "120"
+                          , "--heighttype", "pixel"
+                          , "--height", "15"
+                          , "--transparent", "true"
+                          , "--tint", "0x191970"
+                          , "--monitor", "primary"
+                          ]
                  , respawn = True
+                 , pidFile = ""
                  }
 
-urxvtd = PidProg "urxvtd" "urxvtd -q -o" False
-redshift = PidProg "gtk-redshift" "gtk-redshift" False
-dropbox dropboxd = PidProg "dropbox" (dropboxd ++ " start") False
+urxvtd = PidProg "urxvtd" ["-q", "-o"] False ""
+redshift = PidProg "gtk-redshift" [] False ""
+dropbox dropboxd = PidProg dropboxd ["start"] False ""
 
 main :: IO ()
 main = do setNeoLayout
           spawn "xset b off"
           pidPath <- (</> ".xmonad" </> "run") <$> getHomeDirectory
-          startProgWPidFile pidPath trayer
-          startProgWPidFile pidPath urxvtd
-          startProgWPidFile pidPath redshift
-          db <- dropbox . (</> ".dropbox-dist" </> "dropboxd") <$> getHomeDirectory
-          startProgWPidFile pidPath db
+          db <- dropboxExec
+          mapM_ startProgWPidFile (map (setPidFile pidPath) [trayer, urxvtd, redshift, db])
           xmonad =<< xmobar myConfig
+  where setPidFile path prog = prog {pidFile = path </> (name prog) <.> "pid"}
 
-startProgWPidFile :: String -> PidProg -> IO ()
-startProgWPidFile dir prog = do
-  createDirectoryIfMissing True dir
-  pidFileExists <- doesFileExist pidFile      
+dropboxExec :: MonadIO m => m PidProg
+dropboxExec = liftM 
+                (dropbox . (</> ".dropbox-dist" </> "dropboxd")) 
+                (io getHomeDirectory)
+
+startProgWPidFile :: PidProg -> IO ()
+startProgWPidFile prog = do
+  createDirectoryIfMissing True (takeDirectory . pidFile $ prog)
+  pidFileExists <- (doesFileExist . pidFile) prog
   if not pidFileExists
      then spawnThis
-     else do oldPid <- read <$> readFile pidFile
+     else do oldPid <- read <$> (readFile . pidFile) prog
              runs <- checkProgIsRunning oldPid
              if runs
                 then when (respawn prog) (do spawn ("kill " ++ show oldPid)
                                              spawnThis)
                 else spawnThis
-  where pidFile = dir </> (name prog) <.> "pid"
-        spawnThis = spawnWPidFile pidFile (command prog)
+  where spawnThis = spawnWPidFile prog
 
-checkProgIsRunning :: ProcessID -> IO Bool
+checkProgIsRunning :: MonadIO m => ProcessID -> m Bool
 checkProgIsRunning pid = 
-  do result <- try (getProcessPriority pid) :: IO (Either IOException Int)
+  do result <- io (try $ getProcessPriority pid :: IO (Either IOException Int))
      case result of
        Right _ -> return True
        Left _ -> return False
 
-spawnWPidFile :: FilePath -> String -> IO ()
-spawnWPidFile pidFile exec = do pid <- spawnPID exec
-                                writeFile pidFile (show pid) 
+spawnWPidFile :: MonadIO m => PidProg -> m ()
+spawnWPidFile prog = do pid <- spawnPID' prog
+                        io (writeFile (pidFile prog) (show pid))
+  where spawnPID' p = xfork $ executeFile 
+                                (encodeString . command $ p) 
+                                True 
+                                (map encodeString $ args p)
+                                Nothing
 
 myConfig :: XConfig (Choose Tall (Choose (Mirror Tall) Full))
 myConfig =  

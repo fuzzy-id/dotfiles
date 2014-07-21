@@ -4,7 +4,6 @@ import Codec.Binary.UTF8.String
 import Control.Applicative
 import Control.Exception
 import Control.Monad
-import Data.List
 import System.Directory
 import System.FilePath
 import System.Posix.Process
@@ -14,22 +13,83 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.Script (execScriptHook)
 
-setNeoLayout :: MonadIO m => m ()
-setNeoLayout = do spawn "setxkbmap de"
-                  dotfiles <- liftM (</> "dotfiles") (io getHomeDirectory)
-                  spawn ("xmodmap " ++ dotfiles </> "neo_de.xmodmap")
-                  spawn ("xmodmap " ++ dotfiles </> "swap_ctrl_altgr.xmodmap")
-
 data PidProg = PidProg { command :: String
                        , args :: [String]
                        , respawn :: Bool
                        , pidFile :: String
                        }
 
-name :: PidProg -> String
-name p = (takeFileName . command) p
+commandName :: PidProg -> String
+commandName p = (takeFileName . command) p
 
-trayer :: PidProg
+makePidProg :: FilePath -> [String] -> Bool -> PidProg
+makePidProg c args respawn = PidProg c args respawn ""
+
+readPidFile :: (Read r, MonadIO m) => PidProg -> m r
+readPidFile prog = liftM read $ (io . readFile . pidFile) prog
+
+writePidFile :: (Show a, MonadIO m) => PidProg -> a -> m () 
+writePidFile prog pid = io $ writeFile (pidFile prog) (show pid)
+
+setPidFile :: FilePath -> PidProg -> PidProg   
+setPidFile path prog = 
+  prog {pidFile = path </> (commandName prog) <.> "pid"}
+
+pidProgPid :: MonadIO m => PidProg -> m (Maybe ProcessID)
+pidProgPid prog = do fileExists <- (io . doesFileExist . pidFile) prog
+                     if not fileExists
+                        then return Nothing
+                        else do oldPid <- readPidFile prog 
+                                runs <- doesPidProgRun oldPid
+                                if runs
+                                   then return (Just oldPid)
+                                   else return Nothing
+
+runPidProgs :: MonadIO m => [PidProg] -> m ()
+runPidProgs ps = do pidPath <- initPidPath
+                    let progs = map (setPidFile pidPath) ps
+                    mapM_ runPidProg progs 
+
+spawnPidProg :: MonadIO m => PidProg -> m ()
+spawnPidProg prog = io (spawnPID' prog >>= writePidFile prog)
+  where spawnPID' p = xfork $ executeFile 
+                                (encodeString . command $ p) 
+                                True 
+                                (map encodeString $ args p)
+                                Nothing
+
+respawnPidProg :: (Show a, MonadIO m) => PidProg -> a -> m ()
+respawnPidProg prog pid = do spawn ("kill " ++ show pid)
+                             spawnPidProg prog
+
+doesPidProgRun :: MonadIO m => ProcessID -> m Bool
+doesPidProgRun pid = 
+  do result <- io (try $ getProcessPriority pid :: IO (Either IOException Int))
+     case result of
+       Right _ -> return True
+       Left _ -> return False
+
+runPidProg :: MonadIO m => PidProg -> m ()
+runPidProg prog = do
+  pid <- pidProgPid prog
+  case (respawn prog,pid) of
+    (_,Nothing) -> spawnPidProg prog
+    (False,Just _) -> return ()
+    (True, Just pid) -> respawnPidProg prog pid
+
+initPidPath :: MonadIO m => m FilePath
+initPidPath = do pidPath <- liftM (</> ".xmonad" </> "run") $ io getHomeDirectory
+                 io $ createDirectoryIfMissing True pidPath
+                 return pidPath
+
+setNeoLayout :: MonadIO m => m ()
+setNeoLayout = do spawn "setxkbmap de"
+                  dotfiles <- liftM (</> "dotfiles") (io getHomeDirectory)
+                  spawn ("xmodmap " ++ dotfiles </> "neo_de.xmodmap")
+                  spawn ("xmodmap " ++ dotfiles </> "swap_ctrl_altgr.xmodmap")
+
+urxvtd = makePidProg "urxvtd" ["-q", "-o"] False
+redshift = makePidProg "gtk-redshift" [] False
 trayer = PidProg { command = "trayer"
                  , args = [ "--edge", "top"
                           , "--align", "right"
@@ -48,55 +108,16 @@ trayer = PidProg { command = "trayer"
                  , pidFile = ""
                  }
 
-urxvtd = PidProg "urxvtd" ["-q", "-o"] False ""
-redshift = PidProg "gtk-redshift" [] False ""
-dropbox dropboxd = PidProg dropboxd ["start"] False ""
+dropboxExec = dropbox . (</> ".dropbox-dist" </> "dropboxd")
+              <$> (io getHomeDirectory)
+dropbox dropboxd = makePidProg dropboxd ["start"] False
 
 main :: IO ()
 main = do setNeoLayout
           spawn "xset b off"
-          pidPath <- (</> ".xmonad" </> "run") <$> getHomeDirectory
           db <- dropboxExec
-          mapM_ runPidProg (map (setPidFile pidPath) [trayer, urxvtd, redshift, db])
+          runPidProgs [trayer, urxvtd, redshift, db]
           xmonad =<< xmobar myConfig
-
-setPidFile :: FilePath -> PidProg -> PidProg   
-setPidFile path prog = prog {pidFile = path </> (name prog) <.> "pid"}
-
-dropboxExec :: MonadIO m => m PidProg
-dropboxExec = liftM 
-                (dropbox . (</> ".dropbox-dist" </> "dropboxd")) 
-                (io getHomeDirectory)
-
-runPidProg :: PidProg -> IO ()
-runPidProg prog = do
-  createDirectoryIfMissing True (takeDirectory . pidFile $ prog)
-  pidFileExists <- (doesFileExist . pidFile) prog
-  if not pidFileExists
-     then spawnThis
-     else do oldPid <- read <$> (readFile . pidFile) prog
-             runs <- checkProgIsRunning oldPid
-             if runs
-                then when (respawn prog) (do spawn ("kill " ++ show oldPid)
-                                             spawnThis)
-                else spawnThis
-  where spawnThis = spawnWPidFile prog
-
-checkProgIsRunning :: MonadIO m => ProcessID -> m Bool
-checkProgIsRunning pid = 
-  do result <- io (try $ getProcessPriority pid :: IO (Either IOException Int))
-     case result of
-       Right _ -> return True
-       Left _ -> return False
-
-spawnWPidFile :: MonadIO m => PidProg -> m ()
-spawnWPidFile prog = do pid <- spawnPID' prog
-                        io (writeFile (pidFile prog) (show pid))
-  where spawnPID' p = xfork $ executeFile 
-                                (encodeString . command $ p) 
-                                True 
-                                (map encodeString $ args p)
-                                Nothing
 
 myConfig :: XConfig (Choose Tall (Choose (Mirror Tall) Full))
 myConfig =  
@@ -104,4 +125,3 @@ myConfig =
                 , modMask = mod4Mask
                 , normalBorderColor = "black"
                 }
-

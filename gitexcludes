@@ -8,3 +8,8 @@
 .ropeproject/
 __pycache__/
 *.egg-info/
+
+# Haskell/Cabal related
+.cabal-sandbox/
+cabal.sandbox.config
+dist/

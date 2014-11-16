@@ -10,3 +10,7 @@ alias uiae='setxkbmap de; xmodmap -e "keycode 166 = Super_R"; xmodmap ${HOME}/do
 alias asdf='setxkbmap lv && xmodmap ~/dotfiles/neo_de.xmodmap; xmodmap -e "keycode 166 = Super_R"; xmodmap ${HOME}/dotfiles/swap_ctrl_altgr.xmodmap'
 
 alias ls='ls --color=auto'
+
+alias aboid='xrandr --output HDMI1 --mode 1920x1200 --right-of eDP1; xrandr --output eDP1 --primary --mode 1366x768'
+alias dehemm='xrandr --output HDMI1 --mode 1280x1024  --right-of eDP1; xrandr --output eDP1 --primary --mode 1366x768'
+alias schleppi='xrandr --output HDMI1 --off'

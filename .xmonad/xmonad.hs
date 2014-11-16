@@ -4,23 +4,28 @@ import Codec.Binary.UTF8.String
 import Control.Applicative
 import Control.Exception
 import Control.Monad
+import Data.Char
+import Data.Map (Map,union,fromList)
 import System.Directory
 import System.FilePath
 import System.Posix.Process
 import System.Posix.Types
+import System.Process
 
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.Script (execScriptHook)
+import XMonad.Util.EZConfig
 
 data PidProg = PidProg { command :: String
                        , args :: [String]
                        , respawn :: Bool
                        , pidFile :: String
                        }
+                       deriving (Show,Read,Eq)
 
 commandName :: PidProg -> String
-commandName p = (takeFileName . command) p
+commandName = takeFileName . command
 
 makePidProg :: FilePath -> [String] -> Bool -> PidProg
 makePidProg c args respawn = PidProg c args respawn ""
@@ -89,7 +94,7 @@ setNeoLayout = do spawn "setxkbmap de"
                   spawn ("xmodmap " ++ dotfiles </> "swap_ctrl_altgr.xmodmap")
 
 urxvtd = makePidProg "urxvtd" ["-q", "-o"] False
-redshift = makePidProg "gtk-redshift" [] False
+redshift = makePidProg "redshift-gtk" [] False
 trayer = PidProg { command = "trayer"
                  , args = [ "--edge", "top"
                           , "--align", "right"
@@ -110,13 +115,19 @@ trayer = PidProg { command = "trayer"
 
 dropboxExec = dropbox . (</> ".dropbox-dist" </> "dropboxd")
               <$> (io getHomeDirectory)
-dropbox dropboxd = makePidProg dropboxd ["start"] False
+dropbox dropboxd = makePidProg dropboxd ["start"] True
+
+getHostname :: IO String
+getHostname = rstrip <$> readProcess "hostname" [] ""
+  where rstrip = reverse . dropWhile isSpace . reverse
 
 main :: IO ()
 main = do setNeoLayout
           spawn "xset b off"
           db <- dropboxExec
           runPidProgs [trayer, urxvtd, redshift, db]
+          -- getHostname >>= configByHostname 
+          configByHostname "ilxwinb01"
           xmonad =<< xmobar myConfig
 
 myConfig :: XConfig (Choose Tall (Choose (Mirror Tall) Full))
@@ -124,4 +135,17 @@ myConfig =
   defaultConfig { terminal = "urxvtc"
                 , modMask = mod4Mask
                 , normalBorderColor = "black"
+                , focusedBorderColor = "#bb0000"
                 }
+  `additionalKeysP` [ ("<XF86Mail>",spawn "icedove")
+                    , ("<XF86HomePage>",spawn "conkeror")
+                    ]
+
+configByHostname :: String -> IO ()
+configByHostname s
+  | s == "ilxwinb01" = do runPidProgs [nmApplet]
+                          return ()
+  | otherwise = return ()
+
+nmApplet = makePidProg "nm-applet" [] False
+

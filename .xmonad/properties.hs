@@ -20,11 +20,12 @@ runTests = $(quickCheckAll)
 
 instance Arbitrary PulseItem where
   arbitrary = Sink 
-              <$> arbitraryString `suchThat` (not . null)  -- Name
-              <*> arbitrary -- defaultSink
-              <*> choose (0,maxBound) -- volume
-              <*> arbitrary -- mute
+              <$> arbitraryString `suchThat` (not . null)  -- sinkName
+              <*> arbitrary                                -- sinkDefault
+              <*> choose (0,maxBound)                      -- sinkVolume
+              <*> arbitrary                                -- sinkMute
 
+arbitraryString :: Gen String
 arbitraryString = filter (`notElem` " \n\t\r\f\v\160") <$> arbitrary
 
 class Serializable a where
@@ -44,8 +45,10 @@ instance Serializable PulseItem where
 instance Ord PulseItem where
   compare = compare `on` sinkName
 
+serializeVolume :: PulseItem -> String
 serializeVolume s = 
   "set-sink-volume " ++ sinkName s ++ " 0x" ++ ((flip showHex "" . sinkVolume) s)
+serializeMute :: PulseItem -> String
 serializeMute s =
   "set-sink-mute " ++ sinkName s ++ " " ++ (if sinkMute s then "yes" else "no")
 

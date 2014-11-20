@@ -1,4 +1,3 @@
-{-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE TupleSections #-}
 module Pulse where
 
@@ -6,7 +5,9 @@ import Control.Applicative
 import Control.Monad
 import Data.Function
 import Data.List
-import System.Process
+import Numeric (showHex)
+import XMonad
+import XMonad.Util.Run
 import qualified Text.Parsec as P
 
 data PulseItem = Sink { sinkName :: String
@@ -18,6 +19,58 @@ data PulseItem = Sink { sinkName :: String
 defaultPulseItem :: PulseItem
 defaultPulseItem = Sink "" False 0 False
 
+getDefaultSink :: [PulseItem] -> PulseItem
+getDefaultSink = head . dropWhile (not . sinkDefault) 
+
+toggleMute :: PulseItem -> PulseItem
+toggleMute p = p { sinkMute = (not . sinkMute) p }
+
+changeVolumePercent :: Int -> PulseItem -> PulseItem
+changeVolumePercent n p = p {sinkVolume = newVolume}
+  where newVolume = reduceToBoundaries 0 maxVol changed
+        changed = sinkVolume p + change
+        change = (maxVol * n) `div` 100
+
+raiseVolumePercent :: Int -> PulseItem -> PulseItem
+raiseVolumePercent = changeVolumePercent
+
+lowerVolumePercent :: Int -> PulseItem -> PulseItem
+lowerVolumePercent n = changeVolumePercent (-n)
+
+reduceToBoundaries :: Ord a => a -> a -> a -> a
+reduceToBoundaries min max n 
+  | n > max = max
+  | n < min = min
+  | otherwise = n
+
+maxVol :: (Num a, Read a) => a
+maxVol = readHex "10000"
+
+-- Commands
+
+paDumpSinks :: (MonadIO m, Functor m) => m [PulseItem]
+paDumpSinks = createSinks . getRight . P.parse pDump "pacmd" 
+              <$> runProcessWithInput "pacmd" ["dump"] ""
+
+paSinkMuteToggle :: MonadIO m => PulseItem -> m () 
+paSinkMuteToggle s = spawn $ "pactl set-sink-mute " ++ sinkName s ++ " toggle"
+
+paRaiseDefaultSinkVolume10Percent :: (MonadIO m, Functor m) => m ()
+paRaiseDefaultSinkVolume10Percent = 
+  paDumpSinks >>= paSetSinkVolume . raiseVolumePercent 10 . getDefaultSink
+
+paLowerDefaultSinkVolume10Percent :: (MonadIO m, Functor m) => m ()
+paLowerDefaultSinkVolume10Percent = 
+  paDumpSinks >>= paSetSinkVolume . lowerVolumePercent 10 . getDefaultSink
+
+paSetSinkVolume :: MonadIO m => PulseItem -> m ()
+paSetSinkVolume s = spawn $ "pactl " ++ serializeVolume s
+
+serializeVolume :: PulseItem -> String
+serializeVolume s = 
+  "set-sink-volume " ++ sinkName s ++ " 0x" ++ ((flip showHex "" . sinkVolume) s)
+
+-- Parsing
 createSinks :: [(String,PulseItem -> PulseItem)] -> [PulseItem]
 createSinks = map createSink . groupBySinkName
   where createSink l@((name,_):_) =
@@ -29,12 +82,6 @@ groupBySinkName =
   . sortBy (compare `on` fst)
   . filter ((sinkName defaultPulseItem /=) . fst)
 
--- Commands
-
-paDump :: IO String
-paDump = readProcess "pacmd" ["dump"] ""
-
--- Parsing
 getRight :: Show a => Either a b -> b
 getRight = either (error . show) id
 

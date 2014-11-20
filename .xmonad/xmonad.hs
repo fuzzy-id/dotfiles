@@ -16,6 +16,11 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.Script (execScriptHook)
 import XMonad.Util.EZConfig
+import XMonad.Util.Run
+import XMonad.Prompt
+import XMonad.Prompt.Window
+
+import Pulse
 
 data PidProg = PidProg { command :: String
                        , args :: [String]
@@ -89,12 +94,14 @@ initPidPath = do pidPath <- liftM (</> ".xmonad" </> "run") $ io getHomeDirector
 
 setNeoLayout :: MonadIO m => m ()
 setNeoLayout = do spawn "setxkbmap de"
+                  spawn "xmodmap -e 'keycode 166 = Super_R'"
                   dotfiles <- liftM (</> "dotfiles") (io getHomeDirectory)
                   spawn ("xmodmap " ++ dotfiles </> "neo_de.xmodmap")
                   spawn ("xmodmap " ++ dotfiles </> "swap_ctrl_altgr.xmodmap")
 
 urxvtd = makePidProg "urxvtd" ["-q", "-o"] False
 redshift = makePidProg "redshift-gtk" [] False
+emacsd = makePidProg "emacs" ["--daemon"] False
 trayer = PidProg { command = "trayer"
                  , args = [ "--edge", "top"
                           , "--align", "right"
@@ -117,15 +124,15 @@ dropboxExec = dropbox . (</> ".dropbox-dist" </> "dropboxd")
               <$> (io getHomeDirectory)
 dropbox dropboxd = makePidProg dropboxd ["start"] True
 
-getHostname :: IO String
-getHostname = rstrip <$> readProcess "hostname" [] ""
+getHostname :: (MonadIO m, Functor m) => m String
+getHostname = rstrip <$> runProcessWithInput "hostname" [] ""
   where rstrip = reverse . dropWhile isSpace . reverse
 
 main :: IO ()
 main = do setNeoLayout
           spawn "xset b off"
           db <- dropboxExec
-          runPidProgs [trayer, urxvtd, redshift, db]
+          runPidProgs [trayer, urxvtd, redshift, db, emacsd]
           -- getHostname >>= configByHostname 
           configByHostname "ilxwinb01"
           xmonad =<< xmobar myConfig
@@ -139,6 +146,11 @@ myConfig =
                 }
   `additionalKeysP` [ ("<XF86Mail>",spawn "icedove")
                     , ("<XF86HomePage>",spawn "conkeror")
+                    , ("<XF86Search>", spawn "emacsclient -nc")
+                    , ("<F2>", windowPromptGoto defaultXPConfig)
+                    , ("<XF86AudioMute>", paDumpSinks >>= paSinkMuteToggle . getDefaultSink)
+                    , ("<XF86AudioLowerVolume>", paLowerDefaultSinkVolume10Percent)
+                    , ("<XF86AudioRaiseVolume>", paRaiseDefaultSinkVolume10Percent)
                     ]
 
 configByHostname :: String -> IO ()

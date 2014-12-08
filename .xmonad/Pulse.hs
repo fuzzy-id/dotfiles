@@ -115,6 +115,6 @@ readHex = fst . readHex'
           | c == 'd' = calc 13
           | c == 'e' = calc 14
           | c == 'f' = calc 15
-          | otherwise = (calc . read . (:[])) c
+          | otherwise = (calc . read) [c]
           where calc n = (n*16^exp + prev,exp+1)
                 (prev,exp) = readHex' xs

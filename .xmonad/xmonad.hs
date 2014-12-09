@@ -20,6 +20,7 @@ import XMonad.Util.Run
 import XMonad.Prompt
 import XMonad.Prompt.Window
 
+import Brightness
 import Pulse
 
 data PidProg = PidProg { command :: String
@@ -151,6 +152,8 @@ myConfig =
                     , ("<XF86AudioMute>", paDumpSinks >>= paSinkMuteToggle . getDefaultSink)
                     , ("<XF86AudioLowerVolume>", paLowerDefaultSinkVolume10Percent)
                     , ("<XF86AudioRaiseVolume>", paRaiseDefaultSinkVolume10Percent)
+                    , ("<XF86MonBrightnessDown>", changeBrightness (-100))
+                    , ("<XF86MonBrightnessUp>", changeBrightness 100)
                     ]
 
 configByHostname :: String -> IO ()

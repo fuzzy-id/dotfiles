@@ -10,6 +10,8 @@ import XMonad
 import XMonad.Util.Run
 import qualified Text.Parsec as P
 
+import Common
+
 data PulseItem = Sink { sinkName :: String
                       , sinkDefault :: Bool
                       , sinkVolume :: Int
@@ -37,12 +39,6 @@ raiseVolumePercent = changeVolumePercent
 lowerVolumePercent :: Int -> PulseItem -> PulseItem
 lowerVolumePercent n = changeVolumePercent (-n)
 
-reduceToBoundaries :: Ord a => a -> a -> a -> a
-reduceToBoundaries min max n 
-  | n > max = max
-  | n < min = min
-  | otherwise = n
-
 maxVol :: (Num a, Read a) => a
 maxVol = readHex "10000"
 
@@ -61,7 +57,12 @@ paRaiseDefaultSinkVolume10Percent =
 
 paLowerDefaultSinkVolume10Percent :: (MonadIO m, Functor m) => m ()
 paLowerDefaultSinkVolume10Percent = 
-  paDumpSinks >>= paSetSinkVolume . lowerVolumePercent 10 . getDefaultSink
+  paDumpSinks >>= paSetSinkVolumeAndUnmute . lowerVolumePercent 10 . getDefaultSink
+
+paSetSinkVolumeAndUnmute :: MonadIO m => PulseItem -> m ()
+paSetSinkVolumeAndUnmute p 
+  | sinkMute p = paSinkMuteToggle p >> paSetSinkVolume p
+  | otherwise = paSetSinkVolume p
 
 paSetSinkVolume :: MonadIO m => PulseItem -> m ()
 paSetSinkVolume s = spawn $ "pactl " ++ serializeVolume s
@@ -102,8 +103,10 @@ pSinkVolume = P.string "set-sink-volume "
               *> ((,) <$>  P.anyChar `P.manyTill` P.string " 0x")
               <*> ((\v s -> s {sinkVolume = v}) . readHex
                    <$> P.many P.alphaNum)
-pYesOrNo = (P.string "yes" *> pure True)
-           P.<|> (P.string "no" *> pure False)
+
+pYesOrNo = pYes P.<|> pNo
+pYes = const True <$> P.string "yes"
+pNo = const False <$> P.string "no"
 
 readHex :: (Num c, Read c) => String -> c
 readHex = fst . readHex'

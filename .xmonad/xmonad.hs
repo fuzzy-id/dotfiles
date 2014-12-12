@@ -150,8 +150,8 @@ myConfig =
                     , ("<XF86Search>", spawn "emacsclient -nc")
                     , ("<F2>", windowPromptGoto defaultXPConfig)
                     , ("<XF86AudioMute>", paDumpSinks >>= paSinkMuteToggle . getDefaultSink)
-                    , ("<XF86AudioLowerVolume>", paLowerDefaultSinkVolume10Percent)
-                    , ("<XF86AudioRaiseVolume>", paRaiseDefaultSinkVolume10Percent)
+                    , ("<XF86AudioLowerVolume>", paLowerDefaultSinkVolumeByPercent 5)
+                    , ("<XF86AudioRaiseVolume>", paRaiseDefaultSinkVolumeByPercent 5)
                     , ("<XF86MonBrightnessDown>", changeBrightness (-100))
                     , ("<XF86MonBrightnessUp>", changeBrightness 100)
                     ]

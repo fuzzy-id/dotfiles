@@ -1,4 +1,5 @@
 {-# LANGUAGE TupleSections #-}
+{-# LANGUAGE RecordWildCards #-}
 module Pulse where
 
 import Control.Applicative
@@ -42,34 +43,58 @@ lowerVolumePercent n = changeVolumePercent (-n)
 maxVol :: (Num a, Read a) => a
 maxVol = readHex "10000"
 
--- Commands
+-- Higher Level Commands
 
 paDumpSinks :: (MonadIO m, Functor m) => m [PulseItem]
 paDumpSinks = createSinks . getRight . P.parse pDump "pacmd" 
               <$> runProcessWithInput "pacmd" ["dump"] ""
 
-paSinkMuteToggle :: MonadIO m => PulseItem -> m () 
-paSinkMuteToggle s = spawn $ "pactl set-sink-mute " ++ sinkName s ++ " toggle"
+paRaiseDefaultSinkVolumeByPercent :: (MonadIO m, Functor m) => Int -> m ()
+paRaiseDefaultSinkVolumeByPercent p = 
+  paDumpSinks >>= paSetSinkVolumeAndUnmute . raiseVolumePercent p . getDefaultSink
 
-paRaiseDefaultSinkVolume10Percent :: (MonadIO m, Functor m) => m ()
-paRaiseDefaultSinkVolume10Percent = 
-  paDumpSinks >>= paSetSinkVolume . raiseVolumePercent 10 . getDefaultSink
-
-paLowerDefaultSinkVolume10Percent :: (MonadIO m, Functor m) => m ()
-paLowerDefaultSinkVolume10Percent = 
-  paDumpSinks >>= paSetSinkVolumeAndUnmute . lowerVolumePercent 10 . getDefaultSink
+paLowerDefaultSinkVolumeByPercent :: (MonadIO m, Functor m) => Int -> m ()
+paLowerDefaultSinkVolumeByPercent p = 
+  paDumpSinks >>= paSetSinkVolume . lowerVolumePercent p . getDefaultSink
 
 paSetSinkVolumeAndUnmute :: MonadIO m => PulseItem -> m ()
-paSetSinkVolumeAndUnmute p 
-  | sinkMute p = paSinkMuteToggle p >> paSetSinkVolume p
-  | otherwise = paSetSinkVolume p
+paSetSinkVolumeAndUnmute p = do paUnmute p
+                                paSetSinkVolume p
+
+paUnmute :: MonadIO m => PulseItem -> m ()
+paUnmute s 
+  | sinkMute s = paSinkMuteToggle s
+  | otherwise = return ()
+
+paGetSinkByName :: (Functor m, MonadIO m) => String -> m PulseItem
+paGetSinkByName name = head . filter ((name ==) . sinkName) <$> paDumpSinks
+
+-- Low Level Commands
+
+paSetSink :: MonadIO m => PulseItem -> m ()
+paSetSink s = do paSetSinkMute s
+                 paSetSinkVolume s
+                 paSetSinkDefault s
+
+paSetSinkDefault :: MonadIO m => PulseItem -> m ()
+paSetSinkDefault Sink{..} 
+  | sinkDefault = spawnPactl ["set-default-sink", sinkName]
+  | otherwise = return ()
+
+paSinkMuteToggle :: MonadIO m => PulseItem -> m () 
+paSinkMuteToggle Sink{..} = spawnPactl ["set-sink-mute", sinkName, "toggle"]
+
+paSetSinkMute :: MonadIO m => PulseItem -> m ()
+paSetSinkMute Sink{..} 
+  | sinkMute = spawnPactl ["set-sink-mute", sinkName, "yes"]
+  | otherwise = spawnPactl ["set-sink-mute", sinkName, "no"]
 
 paSetSinkVolume :: MonadIO m => PulseItem -> m ()
-paSetSinkVolume s = spawn $ "pactl " ++ serializeVolume s
+paSetSinkVolume Sink{..} = 
+  spawnPactl ["set-sink-volume", sinkName, "0x" ++ (flip showHex "" sinkVolume)]
 
-serializeVolume :: PulseItem -> String
-serializeVolume s = 
-  "set-sink-volume " ++ sinkName s ++ " 0x" ++ ((flip showHex "" . sinkVolume) s)
+spawnPactl :: MonadIO m => [String] -> m ()
+spawnPactl = spawn . intercalate " " . ("pactl":)
 
 -- Parsing
 createSinks :: [(String,PulseItem -> PulseItem)] -> [PulseItem]

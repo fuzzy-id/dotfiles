@@ -5,6 +5,7 @@ import Control.Applicative
 import Control.Monad
 import Data.Function
 import Data.List
+import Numeric
 import System.Exit
 import Test.QuickCheck
 import qualified Text.Parsec as P
@@ -47,6 +48,10 @@ instance Ord PulseItem where
 serializeMute :: PulseItem -> String
 serializeMute s =
   "set-sink-mute " ++ sinkName s ++ " " ++ (if sinkMute s then "yes" else "no")
+
+serializeVolume :: PulseItem -> String
+serializeVolume s = 
+  "set-sink-volume " ++ sinkName s ++ " 0x" ++ ((flip showHex "" . sinkVolume) s)
 
 (<&>) :: (a -> Bool) -> (a -> Bool) -> a -> Bool
 (f <&> g) x = f x && g x

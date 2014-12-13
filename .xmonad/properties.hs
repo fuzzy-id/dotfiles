@@ -1,4 +1,5 @@
 {-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE RecordWildCards #-}
 module Main where
 
 import Control.Applicative
@@ -35,38 +36,22 @@ instance Serializable a => Serializable [a] where
   serialize = concatMap serialize
 
 instance Serializable PulseItem where
-  serialize s@(Sink { sinkDefault = d })
-    | d = body ++ "set-default-sink " ++ sinkName s ++ "\n"
+  serialize Sink{..}
+    | sinkDefault = body ++ "set-default-sink " ++ sinkName ++ "\n"
     | otherwise = body
-    where body = unlines [ serializeVolume s
-                         , serializeMute s
-                         ]
+    where body = unlines [serializeVolume, serializeMute]
+          serializeVolume = 
+            "set-sink-volume " ++ sinkName ++ " 0x" ++ showHex sinkVolume ""
+          serializeMute 
+            | sinkMute = muteBody ++ " yes"
+            | otherwise = muteBody ++ " no"
+            where muteBody = "set-sink-mute " ++ sinkName
 
 instance Ord PulseItem where
   compare = compare `on` sinkName
 
-serializeMute :: PulseItem -> String
-serializeMute s =
-  "set-sink-mute " ++ sinkName s ++ " " ++ (if sinkMute s then "yes" else "no")
-
-serializeVolume :: PulseItem -> String
-serializeVolume s = 
-  "set-sink-volume " ++ sinkName s ++ " 0x" ++ (flip showHex "" . sinkVolume) s
-
 (<&>) :: (a -> Bool) -> (a -> Bool) -> a -> Bool
 (f <&> g) x = f x && g x
-
-prop_pVolume_on_serialized_gives_id :: PulseItem -> Bool
-prop_pVolume_on_serialized_gives_id s = (name,volume) == (sinkName s,sinkVolume s)
-  where volume = (sinkVolume . sinkMod) defaultPulseItem
-        (name,sinkMod) = (getRight . P.parse pSinkVolume m) m
-        m = serializeVolume s
-
-prop_pMute_on_serialized_gives_id :: PulseItem -> Bool
-prop_pMute_on_serialized_gives_id s = (name,mute) == (sinkName s,sinkMute s)
-  where mute = (sinkMute . sinkMod) defaultPulseItem
-        (name,sinkMod) =  (getRight . P.parse pSinkMute m) m
-        m = serializeMute s
 
 prop_pDump_on_serialized_eq_id :: PulseItem -> Bool
 prop_pDump_on_serialized_eq_id s = [s] == result

@@ -17,39 +17,44 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs: .xmonad/
+  ghc-options: -Wall
   exposed-modules:
     Brightness
+    PidProg
     Pulse
   other-modules:
     Common
   build-depends:
     base,
-    parsec >=3.1 && <3.2,
-    process >=1.1 && <1.2,
-    xmonad >=0.11 && <0.12,
+    containers     >=0.5 && <0.6,
+    directory      >=1.2 && <1.3,
+    filepath       >= 1.3 && <1.4,
+    parsec         >=3.1 && <3.2,
+    process        >=1.1 && <1.2,
+    unix           >=2.6 && <2.7,
+    utf8-string    >=0.3 && <0.4,
+    xmonad         >=0.11 && <0.12,
     xmonad-contrib >=0.11 && <0.12
   default-language: Haskell2010
 
 executable my-xmonad
   main-is:             .xmonad/xmonad.hs
-  -- other-extensions:
+  ghc-options: -Wall
   build-depends:
-    base >=4.6 && <4.7,
-    containers >=0.5 && <0.6,
-    directory >=1.2 && <1.3,
-    dotfiles,
-    filepath >= 1.3 && <1.4,
-    process >=1.1 && <1.2,
-    unix >=2.6 && <2.7,
-    utf8-string >=0.3 && <0.4,
-    xmonad >=0.11 && <0.12,
+    dotfiles,   
+    base           >=4.6 && <4.7,
+    containers     >=0.5 && <0.6,
+    directory      >=1.2 && <1.3,
+    utf8-string    >=0.3 && <0.4,
+    unix           >=2.6  && <2.7,
+    xmonad         >=0.11 && <0.12,
     xmonad-contrib >=0.11 && <0.12
-  -- hs-source-dirs:      
   default-language:    Haskell2010
 
 test-suite properties
   type: exitcode-stdio-1.0
   main-is: .xmonad/properties.hs
+  ghc-options: -Wall
   build-depends:
     base,
     dotfiles,
@@ -60,6 +65,7 @@ test-suite properties
 test-suite unit-tests
   type: exitcode-stdio-1.0
   main-is: .xmonad/unit-tests.hs
+  ghc-options: -Wall
   build-depends:
     base,
     dotfiles,

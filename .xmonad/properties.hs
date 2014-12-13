@@ -56,26 +56,33 @@ serializeVolume s =
 (<&>) :: (a -> Bool) -> (a -> Bool) -> a -> Bool
 (f <&> g) x = f x && g x
 
+prop_pVolume_on_serialized_gives_id :: PulseItem -> Bool
 prop_pVolume_on_serialized_gives_id s = (name,volume) == (sinkName s,sinkVolume s)
   where volume = (sinkVolume . sinkMod) defaultPulseItem
         (name,sinkMod) = (getRight . P.parse pSinkVolume m) m
         m = serializeVolume s
 
+prop_pMute_on_serialized_gives_id :: PulseItem -> Bool
 prop_pMute_on_serialized_gives_id s = (name,mute) == (sinkName s,sinkMute s)
   where mute = (sinkMute . sinkMod) defaultPulseItem
         (name,sinkMod) =  (getRight . P.parse pSinkMute m) m
         m = serializeMute s
 
+prop_pDump_on_serialized_eq_id :: PulseItem -> Bool
 prop_pDump_on_serialized_eq_id s = [s] == result
   where result = (createSinks . getRight . P.parse pDump m) m
         m = serialize s
 
-prop_pDump_on_serialized_list_eq_id s = sort s == sort result
+prop_pDump_on_serialized_list_eq_id :: [PulseItem] -> Bool
+prop_pDump_on_serialized_list_eq_id s = (nubSinks . sort) s == sort result
   where result = (createSinks . getRight . P.parse pDump m) m
         m = serialize s
+        nubSinks = nubBy ((==) `on` sinkName)
 
+prop_toggleMute_alters_mute :: PulseItem -> Bool
 prop_toggleMute_alters_mute s = sinkMute s /= sinkMute result
   where result = toggleMute s
 
-prop_changeVolumePercent_result_lies_in_boundaries n = 
+prop_changeVolumePercent_result_lies_in_boundaries :: Int -> PulseItem -> Bool
+prop_changeVolumePercent_result_lies_in_boundaries n =
   ((>= 0) <&> (<= maxVol)). sinkVolume . changeVolumePercent n

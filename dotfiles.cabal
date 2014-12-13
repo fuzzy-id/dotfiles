@@ -49,7 +49,7 @@ executable my-xmonad
 test-suite properties
   type: exitcode-stdio-1.0
   main-is: .xmonad/properties.hs
-  ghc-options: -Wall
+  ghc-options: -Wall -fno-warn-orphans
   build-depends:
     base,
     dotfiles,

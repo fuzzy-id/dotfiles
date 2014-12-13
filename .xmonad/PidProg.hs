@@ -1,3 +1,4 @@
+{-# LANGUAGE RecordWildCards #-}
 module PidProg where
 
 import Codec.Binary.UTF8.String
@@ -20,7 +21,8 @@ commandName :: PidProg -> String
 commandName = takeFileName . command
 
 makePidProg :: FilePath -> [String] -> Bool -> PidProg
-makePidProg c a r = PidProg c a r ""
+makePidProg command args respawn = PidProg{..}
+  where pidFile = ""
 
 readPidFile :: (Read r, MonadIO m) => PidProg -> m r
 readPidFile prog = liftM read $ (io . readFile . pidFile) prog

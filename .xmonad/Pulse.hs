@@ -91,16 +91,16 @@ paSetSinkMute Sink{..}
 
 paSetSinkVolume :: MonadIO m => PulseItem -> m ()
 paSetSinkVolume Sink{..} = 
-  spawnPactl ["set-sink-volume", sinkName, "0x" ++ (flip showHex "" sinkVolume)]
+  spawnPactl ["set-sink-volume", sinkName, "0x" ++ showHex sinkVolume ""]
 
 spawnPactl :: MonadIO m => [String] -> m ()
-spawnPactl = spawn . intercalate " " . ("pactl":)
+spawnPactl = spawn . unwords . ("pactl":)
 
 -- Parsing
 createSinks :: [(String,PulseItem -> PulseItem)] -> [PulseItem]
 createSinks = map createSink . groupBySinkName
   where createSink l@((name,_):_) =
-          foldr ($) defaultPulseItem ((\s -> s {sinkName = name}):(map snd l))
+          foldr ($) defaultPulseItem ((\s -> s {sinkName = name}):map snd l)
 
 groupBySinkName :: [(String, b)] -> [[(String, b)]]
 groupBySinkName =

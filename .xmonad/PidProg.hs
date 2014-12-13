@@ -30,7 +30,7 @@ writePidFile prog pid = io $ writeFile (pidFile prog) (show pid)
 
 setPidFile :: FilePath -> PidProg -> PidProg   
 setPidFile path prog = 
-  prog {pidFile = path </> (commandName prog) <.> "pid"}
+  prog {pidFile = path </> commandName prog <.> "pid"}
 
 pidProgPid :: MonadIO m => PidProg -> m (Maybe ProcessID)
 pidProgPid prog = do fileExists <- (io . doesFileExist . pidFile) prog

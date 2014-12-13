@@ -53,7 +53,7 @@ trayer = PidProg { command = "trayer"
 
 dropboxExec :: IO PidProg
 dropboxExec = dropbox . (</> ".dropbox-dist" </> "dropboxd")
-              <$> (io getHomeDirectory)
+              <$> io getHomeDirectory
 
 dropbox :: FilePath -> PidProg
 dropbox dropboxd = makePidProg dropboxd ["start"] True

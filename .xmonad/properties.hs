@@ -51,7 +51,7 @@ serializeMute s =
 
 serializeVolume :: PulseItem -> String
 serializeVolume s = 
-  "set-sink-volume " ++ sinkName s ++ " 0x" ++ ((flip showHex "" . sinkVolume) s)
+  "set-sink-volume " ++ sinkName s ++ " 0x" ++ (flip showHex "" . sinkVolume) s
 
 (<&>) :: (a -> Bool) -> (a -> Bool) -> a -> Bool
 (f <&> g) x = f x && g x

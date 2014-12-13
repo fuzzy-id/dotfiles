@@ -2,10 +2,14 @@ module MyConfig where
 
 import Control.Applicative
 import Data.Char
+import Data.List
 import System.Directory
 import System.FilePath
 
 import XMonad
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Tabbed
+import XMonad.Layout.Grid
 import XMonad.Hooks.DynamicLog
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
@@ -26,11 +30,14 @@ myMain = do setNeoLayout
             xmonad =<< xmobar myConfig
 
 setNeoLayout :: (MonadIO m, Functor m) => m ()
-setNeoLayout = do spawn "setxkbmap de"
-                  spawn "xmodmap -e 'keycode 166 = Super_R'"
-                  dotfiles <- (</> "dotfiles") <$> io getHomeDirectory
-                  spawn ("xmodmap " ++ dotfiles </> "neo_de.xmodmap")
-                  spawn ("xmodmap " ++ dotfiles </> "swap_ctrl_altgr.xmodmap")
+setNeoLayout = spawn $ intercalate 
+                         ";" 
+                         [ "setxkbmap lv"
+                         , "xmodmap " ++ dotfiles </> "neo_de.xmodmap"
+                         , "xmodmap -e 'keycode 166 = Super_R'"
+                         , "xmodmap " ++ dotfiles </> "swap_ctrl_altgr.xmodmap"
+                         ]
+  where dotfiles = "$HOME" </> "dotfiles"
 
 urxvtd :: PidProg
 urxvtd = makePidProg "urxvtd" ["-q", "-o"] False
@@ -42,23 +49,21 @@ emacsd :: PidProg
 emacsd = makePidProg "emacs" ["--daemon"] False
 
 trayer :: PidProg
-trayer = PidProg { command = "trayer"
-                 , args = [ "--edge", "top"
-                          , "--align", "right"
-                          , "--SetDockType", "true"
-                          , "--SetPartialStrut", "true"
-                          , "--expand", "false"
-                          , "--widthtype", "pixel"
-                          , "--width", "120"
-                          , "--heighttype", "pixel"
-                          , "--height", "15"
-                          , "--transparent", "true"
-                          , "--tint", "0x191970"
-                          , "--monitor", "primary"
-                          ]
-                 , respawn = True
-                 , pidFile = ""
-                 }
+trayer = makePidProg "trayer" 
+                     [ "--edge", "top"
+                     , "--align", "right"
+                     , "--SetDockType", "true"
+                     , "--SetPartialStrut", "true"
+                     , "--expand", "false"
+                     , "--widthtype", "pixel"
+                     , "--width", "120"
+                     , "--heighttype", "pixel"
+                     , "--height", "15"
+                     , "--transparent", "true"
+                     , "--tint", "0x191970"
+                     , "--monitor", "primary"
+                     ]
+                     True
 
 dropboxExec :: (Functor m,MonadIO m) => m PidProg
 dropboxExec = dropbox . (</> ".dropbox-dist" </> "dropboxd")
@@ -71,12 +76,12 @@ getHostname :: (MonadIO m, Functor m) => m String
 getHostname = rstrip <$> runProcessWithInput "hostname" [] ""
   where rstrip = reverse . dropWhile isSpace . reverse
 
-myConfig :: XConfig (Choose Tall (Choose (Mirror Tall) Full))
 myConfig =  
   defaultConfig { terminal = "urxvtc"
                 , modMask = mod4Mask
                 , normalBorderColor = "black"
                 , focusedBorderColor = "#bb0000"
+                , layoutHook = smartBorders $ layoutHook defaultConfig ||| tabbed shrinkText defaultTheme ||| Grid
                 }
   `additionalKeysP` [ ("<XF86Mail>",spawn "icedove")
                     , ("<XF86HomePage>",spawn "conkeror")

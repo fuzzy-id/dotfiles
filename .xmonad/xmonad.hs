@@ -1,20 +1,12 @@
 module Main where
 
-import Codec.Binary.UTF8.String
 import Control.Applicative
-import Control.Exception
-import Control.Monad
 import Data.Char
-import Data.Map (Map,union,fromList)
 import System.Directory
 import System.FilePath
-import System.Posix.Process
-import System.Posix.Types
-import System.Process
 
 import XMonad
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.Script (execScriptHook)
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
 import XMonad.Prompt
@@ -31,9 +23,16 @@ setNeoLayout = do spawn "setxkbmap de"
                   spawn ("xmodmap " ++ dotfiles </> "neo_de.xmodmap")
                   spawn ("xmodmap " ++ dotfiles </> "swap_ctrl_altgr.xmodmap")
 
+urxvtd :: PidProg
 urxvtd = makePidProg "urxvtd" ["-q", "-o"] False
+
+redshift :: PidProg
 redshift = makePidProg "redshift-gtk" [] False
+
+emacsd :: PidProg
 emacsd = makePidProg "emacs" ["--daemon"] False
+
+trayer :: PidProg
 trayer = PidProg { command = "trayer"
                  , args = [ "--edge", "top"
                           , "--align", "right"
@@ -52,8 +51,11 @@ trayer = PidProg { command = "trayer"
                  , pidFile = ""
                  }
 
+dropboxExec :: IO PidProg
 dropboxExec = dropbox . (</> ".dropbox-dist" </> "dropboxd")
               <$> (io getHomeDirectory)
+
+dropbox :: FilePath -> PidProg
 dropbox dropboxd = makePidProg dropboxd ["start"] True
 
 getHostname :: (MonadIO m, Functor m) => m String
@@ -93,5 +95,6 @@ configByHostname s
                           return ()
   | otherwise = return ()
 
+nmApplet :: PidProg
 nmApplet = makePidProg "nm-applet" [] False
 

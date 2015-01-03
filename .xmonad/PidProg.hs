@@ -11,7 +11,7 @@ import System.Posix.Types
 import XMonad
 
 data PidProg = PidProg { command :: String
-                       , args :: [String]
+                       , args    :: [String]
                        , respawn :: Bool
                        , pidFile :: String
                        }
@@ -72,8 +72,8 @@ runPidProg :: MonadIO m => PidProg -> m ()
 runPidProg prog = do
   pid <- pidProgPid prog
   case (respawn prog,pid) of
-    (_,Nothing) -> spawnPidProg prog
-    (False,Just _) -> return ()
+    (_,    Nothing  ) -> spawnPidProg prog
+    (False,Just _   ) -> return ()
     (True, Just pid') -> respawnPidProg prog pid'
 
 initPidPath :: MonadIO m => m FilePath

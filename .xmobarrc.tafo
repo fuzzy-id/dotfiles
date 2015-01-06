@@ -1,3 +1,4 @@
+-- -*- mode: haskell -*-
 Config { font = "xft:DejaVu Sans Mono:antialias=true:pixelsize=10"
        , bgColor = "black"
        , fgColor = "grey"

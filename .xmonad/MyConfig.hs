@@ -24,7 +24,7 @@ myMain :: IO ()
 myMain = do setNeoLayout
             spawn "xset b off"
             db <- dropboxExec
-            runPidProgs [trayer, urxvtd, redshift, db, emacsd]
+            runPidProgs [trayer, urxvtd, redshift, db, emacsd, pidgin]
             -- getHostname >>= configByHostname 
             configByHostname "ilxwinb01"
             xmonad =<< xmobar myConfig
@@ -47,6 +47,9 @@ redshift = makePidProg "redshift-gtk" [] False
 
 emacsd :: PidProg
 emacsd = makePidProg "emacs" ["--daemon"] False
+
+pidgin :: PidProg
+pidgin = makePidProg "pidgin" [] False
 
 trayer :: PidProg
 trayer = makePidProg "trayer" 

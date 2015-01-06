@@ -64,5 +64,6 @@ test-suite unit-tests
   build-depends:
     base,
     dotfiles,
+    unix,
     HUnit >=1.2 && <1.3
   default-language:    Haskell2010

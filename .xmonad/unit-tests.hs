@@ -6,9 +6,12 @@ import Control.Exception
 import Control.Monad
 import Data.Function
 import Data.List
-import Pulse
 import System.Exit
+import System.Posix.Process
 import Test.HUnit
+
+import Pulse
+import PidProg
 
 main :: IO ()
 main = do result <- (runTestTT . TestList . map TestCase) tests
@@ -18,6 +21,8 @@ main = do result <- (runTestTT . TestList . map TestCase) tests
                 , test_exactly_one_default_sink
                 , test_default_sink_exists
                 , test_paSetSink_does_not_alter_sinks
+                , test_doesPidProgRun_on_own_pid
+                , test_doesPidProgRun_on_non_existent_pid
                 ]
 
 instance Ord PulseItem where
@@ -63,3 +68,9 @@ test_paUnmute = bracket (head <$> paDumpSinks) paSetSink t
                     delay
                     sink'' <- paGetSinkByName . sinkName $ sink
                     sinkMute sink'' @=? False
+
+test_doesPidProgRun_on_own_pid :: Assertion
+test_doesPidProgRun_on_own_pid = getProcessID >>= doesPidProgRun >>= (@=? True)
+
+test_doesPidProgRun_on_non_existent_pid :: Assertion
+test_doesPidProgRun_on_non_existent_pid = doesPidProgRun (-1) >>= (@=? False)

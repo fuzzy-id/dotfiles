@@ -15,6 +15,7 @@ import XMonad.Util.EZConfig
 import XMonad.Util.Run
 import XMonad.Prompt
 import XMonad.Prompt.Window
+import XMonad.Prompt.Shell
 
 import Brightness
 import PidProg
@@ -90,7 +91,8 @@ myConfig =
                     , ("<XF86HomePage>",spawn "conkeror")
                     , ("<XF86Search>", spawn "emacsclient -nc")
                     , ("<F2>", windowPromptGoto defaultXPConfig)
-                    , ("<XF86AudioMute>", paDumpSinks >>= paSinkMuteToggle . getDefaultSink)
+                    , ("<F3>", shellPrompt defaultXPConfig)
+                    , ("<XF86AudioMute>", paToggleDefaultSinkMute)
                     , ("<XF86AudioLowerVolume>", paLowerDefaultSinkVolumeByPercent 5)
                     , ("<XF86AudioRaiseVolume>", paRaiseDefaultSinkVolumeByPercent 5)
                     , ("<XF86MonBrightnessDown>", changeBrightness (-100))

@@ -3,7 +3,6 @@
 module Pulse where
 
 import Control.Applicative
-import Control.Monad
 import Data.Function
 import Data.List
 import Numeric (showHex)
@@ -13,10 +12,10 @@ import qualified Text.Parsec as P
 
 import Common
 
-data PulseItem = Sink { sinkName :: String
+data PulseItem = Sink { sinkName    :: String
                       , sinkDefault :: Bool
-                      , sinkVolume :: Int
-                      , sinkMute :: Bool
+                      , sinkVolume  :: Int
+                      , sinkMute    :: Bool
                       } deriving (Show,Eq)
 
 defaultPulseItem :: PulseItem
@@ -56,6 +55,9 @@ paRaiseDefaultSinkVolumeByPercent p =
 paLowerDefaultSinkVolumeByPercent :: (MonadIO m, Functor m) => Int -> m ()
 paLowerDefaultSinkVolumeByPercent p = 
   paDumpSinks >>= paSetSinkVolume . lowerVolumePercent p . getDefaultSink
+
+paToggleDefaultSinkMute :: (MonadIO m, Functor m) => m ()
+paToggleDefaultSinkMute = paDumpSinks >>= paSinkMuteToggle . getDefaultSink
 
 paSetSinkVolumeAndUnmute :: MonadIO m => PulseItem -> m ()
 paSetSinkVolumeAndUnmute p = do paUnmute p
@@ -133,16 +135,12 @@ pYesOrNo = pYes P.<|> pNo
 pYes = const True <$> P.string "yes"
 pNo = const False <$> P.string "no"
 
-readHex :: (Num c, Read c) => String -> c
-readHex = fst . readHex'
-  where readHex' [] = (0,0)
-        readHex' (c:xs)
-          | c == 'a' = calc 10
-          | c == 'b' = calc 11
-          | c == 'c' = calc 12
-          | c == 'd' = calc 13
-          | c == 'e' = calc 14
-          | c == 'f' = calc 15
-          | otherwise = (calc . read) [c]
-          where calc n = (n*16^exp + prev,exp+1)
-                (prev,exp) = readHex' xs
+readHex :: (Num c,Read c) => String -> c
+readHex = foldl1 ((+) . (*16)) . map mapToHex
+  where mapToHex 'a' = 10
+        mapToHex 'b' = 11
+        mapToHex 'c' = 12
+        mapToHex 'd' = 13
+        mapToHex 'e' = 14
+        mapToHex 'f' = 15
+        mapToHex c = read [c]

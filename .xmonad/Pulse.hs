@@ -24,11 +24,12 @@ defaultPulseItem = Sink "" False 0 False
 getDefaultSink :: [PulseItem] -> PulseItem
 getDefaultSink = head . dropWhile (not . sinkDefault) 
 
+toggleMute :: PulseItem -> PulseItem
+toggleMute p = p { sinkMute = (not . sinkMute) p }
+
 changeVolumePercent :: Int -> PulseItem -> PulseItem
 changeVolumePercent n p = p {sinkVolume = newVolume}
-  where newVolume = reduceToBoundaries minVol maxVol changed
-        changed = sinkVolume p + change
-        change = (maxVol * n) `div` 100
+  where newVolume = addTotalPercentsInBounds minVol maxVol n (sinkVolume p)
         minVol = 0
 
 raiseVolumePercent :: Int -> PulseItem -> PulseItem

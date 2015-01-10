@@ -30,13 +30,15 @@ changeVolumePercent n p = p {sinkVolume = newVolume}
         changed = sinkVolume p + change
         change = (maxVol * n) `div` 100
         minVol = 0
-        maxVol = readHex "10000"
 
 raiseVolumePercent :: Int -> PulseItem -> PulseItem
 raiseVolumePercent = changeVolumePercent
 
 lowerVolumePercent :: Int -> PulseItem -> PulseItem
 lowerVolumePercent n = changeVolumePercent (-n)
+
+maxVol :: (Num a, Read a) => a
+maxVol = readHex "10000"
 
 -- Higher Level Commands
 

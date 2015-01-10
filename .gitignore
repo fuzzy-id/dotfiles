@@ -9,3 +9,5 @@ TAGS
 .xmonad/xmonad.errors
 .xmonad/xmonad.hi
 .xmonad/xmonad.o
+
+*.tix

@@ -95,8 +95,8 @@ myConfig =
                     , ("<XF86AudioMute>", paToggleDefaultSinkMute)
                     , ("<XF86AudioLowerVolume>", paLowerDefaultSinkVolumeByPercent 5)
                     , ("<XF86AudioRaiseVolume>", paRaiseDefaultSinkVolumeByPercent 5)
-                    , ("<XF86MonBrightnessDown>", changeBrightness (-100))
-                    , ("<XF86MonBrightnessUp>", changeBrightness 100)
+                    , ("<XF86MonBrightnessDown>", lowerBrightnessByPercent 5)
+                    , ("<XF86MonBrightnessUp>", raiseBrightnessByPercent 5)
                     ]
 
 configByHostname :: (Functor m,MonadIO m) => String -> m ()

@@ -1,3 +1,4 @@
+# -*- mode: shell-script -*-
 # ~/.alias
 # Defining all aliases here
 
@@ -12,5 +13,5 @@ alias asdf='setxkbmap lv && xmodmap ~/dotfiles/neo_de.xmodmap; xmodmap -e "keyco
 alias ls='ls --color=auto'
 
 alias aboid='xrandr --output HDMI1 --mode 1920x1200 --right-of eDP1; xrandr --output eDP1 --primary --mode 1366x768'
-alias dehemm='xrandr --output HDMI1 --mode 1280x1024  --right-of eDP1; xrandr --output eDP1 --primary --mode 1366x768'
+alias dehemm='xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1; xrandr --output eDP1 --primary --mode 1366x768'
 alias schleppi='xrandr --output HDMI1 --off'

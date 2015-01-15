@@ -19,9 +19,11 @@ if [[ -d "${HOME}/bin" ]]; then
 	export PATH="${HOME}/bin:${PATH}"
 fi
 
-if [[ -d "${HOME}/.cabal/bin" ]]; then
-    export PATH="${HOME}/.cabal/bin:${PATH}"
-fi
+for d in ${HOME}/sandboxes/*/.cabal-sandbox/bin/; do
+    if [[ -d "${d}" ]]; then
+	export PATH="${d}:${PATH}"
+    fi
+done
 
 if [[ -d "/usr/lib/ccache" ]]; then
     export PATH="/usr/lib/ccache:$PATH"

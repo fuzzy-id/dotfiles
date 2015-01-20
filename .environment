@@ -19,7 +19,7 @@ if [[ -d "${HOME}/bin" ]]; then
 	export PATH="${HOME}/bin:${PATH}"
 fi
 
-for d in ${HOME}/sandboxes/*/.cabal-sandbox/bin/; do
+for d in ${HOME}/sandboxes/*/.cabal-sandbox/bin; do
     if [[ -d "${d}" ]]; then
 	export PATH="${d}:${PATH}"
     fi
